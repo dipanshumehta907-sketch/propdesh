@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>PROPDESH — Buy. Sell. Rent. No Broker.</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --bg: #010912;
+    --surface: #050f1e;
+    --surface2: #081828;
+    --border: #0d1f38;
+    --gold: #d4a843;
+    --gold-light: #f0d078;
+    --gold-dim: rgba(212,168,67,0.12);
+    --blue-bright: #38b8f5;
+    --blue-mid: #1260a0;
+    --blue-deep: #0a3060;
+    --blue-glow: rgba(56,184,245,0.18);
+    --text: #dff0ff;
+    --text-muted: #6595bb;
+    --text-dim: #2e5070;
+    --green: #2eaa68;
+    --red: #d85050;
+    --radius: 12px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.6;overflow-x:hidden;}
+  ::-webkit-scrollbar{width:6px;}
+  ::-webkit-scrollbar-track{background:var(--bg);}
+  ::-webkit-scrollbar-thumb{background:var(--blue-mid);border-radius:3px;}
+
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(1,9,18,0.92);backdrop-filter:blur(24px);border-bottom:1px solid rgba(56,184,245,0.1);padding:0 5%;}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:68px;}
+  .logo{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;color:var(--gold);letter-spacing:2px;text-decoration:none;}
+  .logo span{color:var(--blue-bright);}
+  .nav-links{display:flex;gap:2rem;list-style:none;}
+  .nav-links a{color:var(--text-muted);text-decoration:none;font-weight:500;font-size:.9rem;transition:color .2s;}
+  .nav-links a:hover{color:var(--blue-bright);}
+  .nav-actions{display:flex;gap:.75rem;align-items:center;}
+  .btn{padding:.55rem 1.3rem;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.875rem;font-weight:600;cursor:pointer;transition:all .2s;border:none;text-decoration:none;display:inline-flex;align-items:center;gap:.4rem;}
+  .btn-outline{background:transparent;border:1.5px solid rgba(79,195,247,0.25);color:var(--text);}
+  .btn-outline:hover{border-color:var(--blue-bright);color:var(--blue-bright);}
+  .btn-gold{background:var(--gold);color:#020b18;}
+  .btn-gold:hover{background:var(--gold-light);transform:translateY(-1px);box-shadow:0 8px 24px rgba(201,168,76,.35);}
+  .btn-lg{padding:.8rem 2rem;font-size:1rem;border-radius:10px;}
+
+  .page{display:none;min-height:100vh;padding-top:68px;}
+  .page.active{display:block;}
+
+  /* ====== HERO ====== */
+  #page-home{padding-top:0;}
+  .hero{min-height:100vh;display:flex;align-items:center;padding:2rem 5% 2rem 8%;position:relative;overflow:hidden;background:radial-gradient(ellipse 130% 90% at 25% 50%,#021628 0%,#010912 70%);}
+  #stars-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;}
+  #bg-globe-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:0.07;}
+  .earth-wrap{position:absolute;right:-4%;top:50%;transform:translateY(-50%);width:min(680px,80vw);height:min(680px,80vw);z-index:1;pointer-events:none;}
+  .earth-halo{position:absolute;inset:-10%;border-radius:50%;background:radial-gradient(circle,rgba(20,90,200,.35) 25%,rgba(10,40,120,.15) 55%,transparent 75%);animation:halo 5s ease-in-out infinite;}
+  .earth-ring{position:absolute;inset:-15%;border-radius:50%;border:1px solid rgba(56,184,245,0.08);animation:ring-pulse 4s ease-in-out infinite;}
+  .earth-ring2{position:absolute;inset:-25%;border-radius:50%;border:1px solid rgba(56,184,245,0.04);animation:ring-pulse 4s ease-in-out infinite 1s;}
+  @keyframes halo{0%,100%{opacity:.5;transform:scale(1);}50%{opacity:1;transform:scale(1.05);}}
+  @keyframes ring-pulse{0%,100%{opacity:.4;transform:scale(1);}50%{opacity:1;transform:scale(1.03);}}
+  #earth-canvas{width:100%;height:100%;display:block;}
+
+  .hero-content{position:relative;z-index:2;max-width:560px;}
+  .badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(79,195,247,.1);border:1px solid rgba(79,195,247,.3);color:var(--blue-bright);padding:.4rem 1rem;border-radius:100px;font-size:.78rem;font-weight:600;letter-spacing:1px;margin-bottom:1.5rem;animation:fadeDown .6s ease;}
+  .hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,5vw,4.2rem);font-weight:900;line-height:1.1;margin-bottom:1.25rem;animation:fadeUp .7s .1s both;}
+  .hero h1 .gold{color:var(--gold);}
+  .hero h1 .blue{color:var(--blue-bright);}
+  .hero p{font-size:1.05rem;color:var(--text-muted);max-width:460px;margin-bottom:2.5rem;animation:fadeUp .7s .2s both;}
+  .hero-ctas{display:flex;gap:1rem;flex-wrap:wrap;animation:fadeUp .7s .3s both;}
+  .cpill{margin-top:2.5rem;background:rgba(7,21,37,.85);border:1px solid rgba(79,195,247,.18);border-radius:100px;padding:.55rem 1.5rem;display:inline-flex;align-items:center;gap:.9rem;font-size:.84rem;animation:fadeUp .7s .4s both;backdrop-filter:blur(12px);}
+  .cpill strong{color:var(--gold);}
+
+  /* ====== SEARCH ====== */
+  .search-section{padding:2.5rem 5%;background:rgba(7,21,37,.97);border-top:1px solid rgba(79,195,247,.1);border-bottom:1px solid rgba(79,195,247,.1);}
+  .search-box{max-width:900px;margin:0 auto;background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:1.5rem;display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:1rem;align-items:end;}
+  .search-box label{font-size:.73rem;letter-spacing:1px;color:var(--text-dim);text-transform:uppercase;margin-bottom:.4rem;display:block;}
+  .search-box input,.search-box select{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.65rem 1rem;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.9rem;outline:none;transition:border-color .2s;}
+  .search-box input:focus,.search-box select:focus{border-color:var(--blue-bright);}
+  .search-box select option{background:var(--surface2);}
+
+  /* ====== STATS ====== */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);}
+  .stat{background:var(--bg);padding:2.5rem 5%;text-align:center;}
+  .stat-num{font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:900;color:var(--gold);}
+  .stat-label{color:var(--text-muted);font-size:.84rem;margin-top:.2rem;}
+
+  section{padding:5rem 5%;}
+  .section-header{margin-bottom:3rem;}
+  .section-header h2{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;margin-bottom:.5rem;}
+  .section-header p{color:var(--text-muted);}
+  .stag{font-size:.73rem;letter-spacing:2px;text-transform:uppercase;color:var(--blue-bright);font-weight:600;margin-bottom:.5rem;display:block;}
+
+  /* ====== CARDS ====== */
+  .prop-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:1.5rem;}
+  .prop-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all .25s;cursor:pointer;}
+  .prop-card:hover{border-color:rgba(79,195,247,.3);transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,20,60,.6);}
+  .prop-img{height:195px;position:relative;overflow:hidden;}
+  .prop-img-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:3rem;}
+  .ptag{position:absolute;top:.75rem;left:.75rem;padding:.28rem .75rem;border-radius:6px;font-size:.73rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;}
+  .ptag-sell{background:var(--red);color:#fff;}
+  .ptag-rent{background:var(--blue-mid);color:#fff;}
+  .ptag-buy{background:var(--green);color:#fff;}
+  .pfav{position:absolute;top:.75rem;right:.75rem;background:rgba(0,0,0,.5);border:none;border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1rem;transition:all .2s;}
+  .pfav:hover{background:var(--gold);transform:scale(1.1);}
+  .pbody{padding:1.2rem;}
+  .pprice{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:700;color:var(--gold);margin-bottom:.22rem;}
+  .pprice span{font-family:'DM Sans',sans-serif;font-size:.78rem;color:var(--text-muted);font-weight:400;}
+  .ptitle{font-weight:600;margin-bottom:.28rem;}
+  .ploc{color:var(--text-muted);font-size:.84rem;margin-bottom:.9rem;}
+  .ploc::before{content:"📍 ";}
+  .pmeta{display:flex;gap:1rem;font-size:.8rem;color:var(--text-muted);padding-top:.7rem;border-top:1px solid var(--border);}
+
+  /* ====== HOW ====== */
+  .how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;}
+  .how-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:2rem;position:relative;transition:border-color .2s;}
+  .how-card:hover{border-color:rgba(79,195,247,.25);}
+  .how-num{font-family:'Playfair Display',serif;font-size:4rem;font-weight:900;color:rgba(79,195,247,.06);position:absolute;top:1rem;right:1.5rem;line-height:1;}
+  .how-icon{font-size:2rem;margin-bottom:1rem;}
+  .how-card h3{font-size:1.05rem;font-weight:700;margin-bottom:.5rem;}
+  .how-card p{color:var(--text-muted);font-size:.88rem;}
+
+  /* ====== FORMS ====== */
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;}
+  .fg{display:flex;flex-direction:column;gap:.4rem;}
+  .fg.full{grid-column:1/-1;}
+  .fg label{font-size:.78rem;letter-spacing:.5px;color:var(--text-dim);text-transform:uppercase;font-weight:600;}
+  .fg input,.fg select,.fg textarea{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.72rem 1rem;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.93rem;outline:none;transition:border-color .2s;}
+  .fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--blue-bright);}
+  .fg textarea{resize:vertical;min-height:100px;}
+  .form-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:2.5rem;max-width:780px;margin:0 auto;}
+
+  /* ====== MODAL ====== */
+  .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,8,20,.88);z-index:200;align-items:center;justify-content:center;backdrop-filter:blur(6px);}
+  .modal-overlay.open{display:flex;}
+  .modal{background:var(--surface);border:1px solid rgba(79,195,247,.2);border-radius:16px;padding:2.5rem;width:90%;max-width:440px;position:relative;animation:fadeUp .3s ease;box-shadow:0 32px 80px rgba(0,0,0,.65);}
+  .modal h2{font-family:'Playfair Display',serif;font-size:1.75rem;font-weight:900;margin-bottom:.3rem;}
+  .modal>p{color:var(--text-muted);font-size:.88rem;margin-bottom:1.75rem;}
+  .modal-close{position:absolute;top:1rem;right:1rem;background:var(--surface2);border:none;color:var(--text-muted);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:1.1rem;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+  .modal-close:hover{color:var(--text);}
+  .mform{display:flex;flex-direction:column;gap:1rem;}
+  .mform input{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.72rem 1rem;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.93rem;outline:none;width:100%;transition:border-color .2s;}
+  .mform input:focus{border-color:var(--blue-bright);}
+  .mswitch{text-align:center;margin-top:1rem;font-size:.875rem;color:var(--text-muted);}
+  .mswitch a{color:var(--blue-bright);cursor:pointer;}
+  .divider{display:flex;align-items:center;gap:1rem;color:var(--text-dim);font-size:.78rem;}
+  .divider::before,.divider::after{content:"";flex:1;height:1px;background:var(--border);}
+
+  /* ====== ABOUT ====== */
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;}
+  .about-text h2{font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:900;margin-bottom:1rem;}
+  .about-text p{color:var(--text-muted);margin-bottom:1.2rem;line-height:1.8;}
+  .abox{background:var(--surface);border:1px solid rgba(79,195,247,.15);border-radius:var(--radius);padding:2.5rem;text-align:center;}
+  .bigpct{font-family:'Playfair Display',serif;font-size:6rem;font-weight:900;color:var(--gold);line-height:1;}
+  .flist{display:flex;flex-direction:column;gap:.72rem;margin-top:1.5rem;}
+  .fitem{display:flex;align-items:center;gap:.75rem;font-size:.93rem;}
+  .fitem::before{content:"✓";background:rgba(79,195,247,.1);color:var(--blue-bright);width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;flex-shrink:0;}
+
+  /* ====== CONTACT ====== */
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;}
+  .contact-info h2{font-family:'Playfair Display',serif;font-size:2.1rem;font-weight:900;margin-bottom:1rem;}
+  .contact-info>p{color:var(--text-muted);margin-bottom:2rem;}
+  .citem{display:flex;gap:1rem;margin-bottom:1.4rem;align-items:flex-start;}
+  .cicon{width:44px;height:44px;background:rgba(79,195,247,.08);border:1px solid rgba(79,195,247,.2);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;}
+  .citem h4{font-weight:600;margin-bottom:.12rem;}
+  .citem p{color:var(--text-muted);font-size:.88rem;margin:0;}
+
+  /* ====== FOOTER ====== */
+  footer{background:var(--surface);border-top:1px solid rgba(79,195,247,.08);padding:4rem 5% 2rem;}
+  .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem;}
+  .fbrand p{color:var(--text-muted);font-size:.85rem;line-height:1.7;max-width:255px;margin-top:.7rem;}
+  .fcol h4{font-weight:700;margin-bottom:1rem;font-size:.88rem;letter-spacing:.5px;color:var(--blue-bright);}
+  .fcol ul{list-style:none;display:flex;flex-direction:column;gap:.55rem;}
+  .fcol ul li a{color:var(--text-muted);text-decoration:none;font-size:.86rem;transition:color .2s;}
+  .fcol ul li a:hover{color:var(--blue-bright);}
+  .footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:2rem;border-top:1px solid var(--border);font-size:.82rem;color:var(--text-dim);}
+
+  /* ====== TABS ====== */
+  .tabs{display:flex;gap:.4rem;margin-bottom:2rem;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:.38rem;width:fit-content;}
+  .tab{padding:.5rem 1.4rem;border-radius:7px;cursor:pointer;font-weight:500;font-size:.88rem;color:var(--text-muted);transition:all .2s;border:none;background:transparent;font-family:'DM Sans',sans-serif;}
+  .tab.active{background:var(--gold);color:#020b18;font-weight:700;}
+
+  /* ====== TOAST ====== */
+  .toast{position:fixed;bottom:2rem;right:2rem;background:var(--surface);border:1px solid rgba(79,195,247,.28);border-radius:10px;padding:.9rem 1.4rem;font-size:.88rem;z-index:300;animation:slideIn .3s ease;display:none;backdrop-filter:blur(12px);}
+  .toast.show{display:block;}
+
+  @keyframes fadeUp{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
+  @keyframes fadeDown{from{opacity:0;transform:translateY(-12px);}to{opacity:1;transform:translateY(0);}}
+  @keyframes slideIn{from{opacity:0;transform:translateX(18px);}to{opacity:1;transform:translateX(0);}}
+  @keyframes spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+
+  @media(max-width:900px){
+    .nav-links{display:none;}
+    .stats{grid-template-columns:1fr 1fr;}
+    .how-grid,.about-grid,.contact-grid{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr 1fr;}
+    .form-grid{grid-template-columns:1fr;}
+    .search-box{grid-template-columns:1fr;}
+    .earth-wrap{opacity:.35;right:-20%;}
+    .hero-content{text-align:center;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="logo" href="#" onclick="showPage('home')">PROP<span>DESH</span></a>
+    <ul class="nav-links">
+      <li><a href="#" onclick="showPage('buy')">Buy</a></li>
+      <li><a href="#" onclick="showPage('sell')">Sell</a></li>
+      <li><a href="#" onclick="showPage('rent')">Rent</a></li>
+      <li><a href="#" onclick="showPage('post')">Post Property</a></li>
+      <li><a href="#" onclick="showPage('about')">About</a></li>
+      <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="btn btn-outline" onclick="openModal('login')">Login</button>
+      <button class="btn btn-gold" onclick="openModal('register')">Register Free</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HOME -->
+<div id="page-home" class="page active">
+  <div class="hero">
+    <canvas id="stars-canvas"></canvas>
+    <canvas id="bg-globe-canvas"></canvas>
+    <div class="earth-wrap">
+      <div class="earth-halo"></div>
+      <div class="earth-ring"></div>
+      <div class="earth-ring2"></div>
+      <canvas id="earth-canvas"></canvas>
+    </div>
+    <div class="hero-content">
+      <div class="badge">🌍 India's No-Broker Property Platform</div>
+      <h1>Find Your<br/><span class="gold">Dream</span> <span class="blue">Property</span><br/>In India</h1>
+      <p>Buy, Sell or Rent directly from owners. No middlemen, no hidden fees — just a flat <strong style="color:var(--gold)">0.30% commission</strong> on successful deals.</p>
+      <div class="hero-ctas">
+        <button class="btn btn-gold btn-lg" onclick="showPage('buy')">🔍 Explore Properties</button>
+        <button class="btn btn-outline btn-lg" onclick="showPage('post')">+ List Your Property</button>
+      </div>
+      <div class="cpill">
+        <span>💰 Only <strong>0.30%</strong> Commission</span>
+        <span style="color:var(--text-dim)">·</span>
+        <span>✅ Zero Brokerage</span>
+        <span style="color:var(--text-dim)">·</span>
+        <span>🔒 Verified Listings</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="search-section">
+    <div class="search-box">
+      <div><label>Property Type</label><select id="s-type"><option value="all">All Types</option><option value="Apartment">Apartment</option><option value="Villa">Villa</option><option value="Plot">Plot</option><option value="Commercial">Commercial</option><option value="PG/Hostel">PG/Hostel</option></select></div>
+      <div><label>Location</label><input id="s-loc" type="text" placeholder="City, Area, Locality..."/></div>
+      <div><label>Budget</label><select id="s-budget"><option value="">Any Budget</option><option value="under20">Under ₹20L</option><option value="20to50">₹20L–₹50L</option><option value="50to1cr">₹50L–₹1Cr</option><option value="1to5cr">₹1Cr–₹5Cr</option><option value="5crplus">₹5Cr+</option></select></div>
+      <button class="btn btn-gold" style="height:46px;white-space:nowrap;" onclick="searchProperties()">Search</button>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-num">12,400+</div><div class="stat-label">Active Listings</div></div>
+    <div class="stat"><div class="stat-num">8,200+</div><div class="stat-label">Happy Clients</div></div>
+    <div class="stat"><div class="stat-num">₹0</div><div class="stat-label">Brokerage Fees</div></div>
+    <div class="stat"><div class="stat-num">0.30%</div><div class="stat-label">Commission Only</div></div>
+  </div>
+
+  <section>
+    <div class="section-header">
+      <span class="stag">Featured Properties</span>
+      <h2>Top Listings This Week</h2>
+      <p>Hand-picked verified properties across India</p>
+    </div>
+    <div class="tabs">
+      <button class="tab active" onclick="filterProps(this,'all')">All</button>
+      <button class="tab" onclick="filterProps(this,'buy')">Buy</button>
+      <button class="tab" onclick="filterProps(this,'sell')">Sell</button>
+      <button class="tab" onclick="filterProps(this,'rent')">Rent</button>
+    </div>
+    <div class="prop-grid" id="featured-grid"></div>
+  </section>
+
+  <section style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+    <div class="section-header">
+      <span class="stag">Process</span>
+      <h2>How PROPDESH Works</h2>
+      <p>Simple, transparent, and fair for everyone</p>
+    </div>
+    <div class="how-grid">
+      <div class="how-card"><div class="how-num">01</div><div class="how-icon">📝</div><h3>List or Search</h3><p>Post your property for free or search from thousands of verified listings across India — zero broker involvement.</p></div>
+      <div class="how-card"><div class="how-num">02</div><div class="how-icon">🤝</div><h3>Connect Directly</h3><p>Buyers, sellers and renters connect directly. No middlemen, no broker calls — just real people talking.</p></div>
+      <div class="how-card"><div class="how-num">03</div><div class="how-icon">✅</div><h3>Close the Deal</h3><p>Finalize the deal and pay only <strong style="color:var(--gold)">0.30% commission</strong>. No hidden fees — ever.</p></div>
+    </div>
+  </section>
+</div>
+
+<!-- BUY -->
+<div id="page-buy" class="page"><section><div class="section-header"><span class="stag">Buy Property</span><h2>Properties for Sale</h2><p>Zero brokerage — direct from owners</p></div><div class="prop-grid" id="buy-grid"></div></section></div>
+
+<!-- SELL -->
+<div id="page-sell" class="page"><section><div class="section-header"><span class="stag">Sell Property</span><h2>Sell Your Property</h2><p>Connect with real buyers — no broker needed</p></div><div class="prop-grid" id="sell-grid"></div></section></div>
+
+<!-- RENT -->
+<div id="page-rent" class="page"><section><div class="section-header"><span class="stag">Rent Property</span><h2>Properties for Rent</h2><p>Deal directly with landlords — no broker cuts</p></div><div class="prop-grid" id="rent-grid"></div></section></div>
+
+<!-- POST PROPERTY -->
+<div id="page-post" class="page">
+  <section>
+    <div class="form-card">
+      <div style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:900;margin-bottom:.4rem;">Post Your Property</div>
+      <div style="color:var(--text-muted);font-size:.9rem;margin-bottom:2rem;">List for free. Pay only 0.30% when the deal closes.</div>
+      <div class="form-grid" id="post-form">
+        <div class="fg"><label>Property Type</label><select id="p-type"><option value="Apartment">Apartment</option><option value="Villa">Villa</option><option value="Plot">Plot</option><option value="Commercial">Commercial</option><option value="PG/Hostel">PG/Hostel</option><option value="Farmhouse">Farmhouse</option></select></div>
+        <div class="fg"><label>Listing Type</label><select id="p-ltype"><option value="sell">Sell</option><option value="rent">Rent</option><option value="buy">Buy</option></select></div>
+        <div class="fg"><label>Property Title</label><input id="p-title" type="text" placeholder="e.g. 3BHK Apartment in Bandra West"/></div>
+        <div class="fg"><label>Location / Area</label><input id="p-loc" type="text" placeholder="e.g. Bandra West, Mumbai"/></div>
+        <div class="fg"><label>Price (₹)</label><input id="p-price" type="number" placeholder="e.g. 8500000"/></div>
+        <div class="fg"><label>Area (sq ft)</label><input id="p-area" type="number" placeholder="e.g. 1200"/></div>
+        <div class="fg"><label>Bedrooms</label><select id="p-beds"><option value="0">Studio/0</option><option value="1">1 BHK</option><option value="2">2 BHK</option><option value="3">3 BHK</option><option value="4">4 BHK</option><option value="5">5+ BHK</option></select></div>
+        <div class="fg"><label>Bathrooms</label><select id="p-baths"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4+</option></select></div>
+        <div class="fg"><label>Contact Name</label><input type="text" placeholder="Your full name"/></div>
+        <div class="fg"><label>Phone Number</label><input id="p-phone" type="tel" placeholder="+91 XXXXX XXXXX"/></div>
+        <div class="fg full"><label>Property Image</label>
+          <input id="p-img" type="file" accept="image/*" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.72rem 1rem;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.93rem;width:100%;cursor:pointer;"/>
+          <div style="font-size:.75rem;color:var(--text-dim);margin-top:.3rem;">JPG, PNG, WebP — max 5MB. Supabase storage mein save hogi.</div>
+        </div>
+        <div class="fg full"><label>Description</label><textarea id="p-desc" placeholder="Describe your property — location advantages, nearby amenities, special features..."></textarea></div>
+        <div class="fg full"><button class="btn btn-gold btn-lg" style="width:100%;justify-content:center;" onclick="submitProperty()">Submit Listing — FREE</button></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ABOUT -->
+<div id="page-about" class="page">
+  <section>
+    <div class="about-grid">
+      <div class="about-text">
+        <span class="stag">About PROPDESH</span>
+        <h2>We Killed the Broker.<br/>Not the Dream.</h2>
+        <p>PROPDESH was born from a simple frustration — why should you pay a broker 1–2% of your property value just to make a phone call?</p>
+        <p>We connect buyers, sellers, and renters directly. Our platform does what brokers used to do — for just <strong style="color:var(--gold)">0.30% commission</strong> on successful deals.</p>
+        <p>Trusted by over 8,200 families across India — from Mumbai to Bangalore, Delhi to Hyderabad.</p>
+        <div class="flist">
+          <div class="fitem">Zero brokerage fees for buyers and renters</div>
+          <div class="fitem">Only 0.30% commission on completed deals</div>
+          <div class="fitem">All listings verified by our team</div>
+          <div class="fitem">Direct communication with owners</div>
+          <div class="fitem">Legal documentation assistance available</div>
+          <div class="fitem">100% transparent — no hidden charges</div>
+        </div>
+      </div>
+      <div>
+        <div class="abox">
+          <div class="bigpct">0.30%</div>
+          <p style="color:var(--text-muted);margin-top:.5rem;font-size:.88rem;">That's all we charge.<br/>Traditional brokers charge 1–2%.</p>
+          <div style="margin-top:2rem;padding:1.4rem;background:var(--bg);border-radius:10px;border:1px solid var(--border);">
+            <p style="font-size:.83rem;color:var(--text-muted);margin-bottom:.7rem;">Example: ₹1 Crore deal</p>
+            <div style="display:flex;justify-content:space-between;margin-bottom:.45rem;"><span>Traditional Broker</span><span style="color:var(--red);font-weight:700;">₹1L – ₹2L</span></div>
+            <div style="display:flex;justify-content:space-between;"><span>PROPDESH</span><span style="color:var(--green);font-weight:700;">₹30,000 only</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- CONTACT -->
+<div id="page-contact" class="page">
+  <section>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <span class="stag">Get in Touch</span>
+        <h2>We're Here to Help</h2>
+        <p>Questions about a listing or a deal? Reach out to us.</p>
+        <div class="citem"><div class="cicon">📧</div><div><h4>Email Us</h4><p>support@propdesh.in</p></div></div>
+        <div class="citem"><div class="cicon">📞</div><div><h4>Call Us</h4><p>+91 98765 43210 (Mon–Sat, 9AM–7PM)</p></div></div>
+        <div class="citem"><div class="cicon">📍</div><div><h4>Office</h4><p>PROPDESH HQ, Cyber City, Gurugram, Haryana 122002</p></div></div>
+      </div>
+      <div class="form-card" style="margin:0;">
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:900;margin-bottom:1.4rem;">Send a Message</h3>
+        <div class="form-grid">
+          <div class="fg"><label>Name</label><input type="text" placeholder="Your name"/></div>
+          <div class="fg"><label>Phone</label><input type="tel" placeholder="+91 XXXXX XXXXX"/></div>
+          <div class="fg full"><label>Email</label><input type="email" placeholder="your@email.com"/></div>
+          <div class="fg full"><label>Message</label><textarea placeholder="Tell us how we can help..."></textarea></div>
+          <div class="fg full"><button class="btn btn-gold btn-lg" style="width:100%;justify-content:center;" onclick="showToast('✅ Message sent! We will reply within 24 hours.')">Send Message</button></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="fbrand">
+      <a class="logo" href="#" onclick="showPage('home')">PROP<span>DESH</span></a>
+      <p>India's most transparent property marketplace. Buy, Sell, Rent — directly. No broker. Just 0.30% commission.</p>
+    </div>
+    <div class="fcol"><h4>Quick Links</h4><ul><li><a href="#" onclick="showPage('buy')">Buy Property</a></li><li><a href="#" onclick="showPage('sell')">Sell Property</a></li><li><a href="#" onclick="showPage('rent')">Rent Property</a></li><li><a href="#" onclick="showPage('post')">Post Listing</a></li></ul></div>
+    <div class="fcol"><h4>Company</h4><ul><li><a href="#" onclick="showPage('about')">About Us</a></li><li><a href="#" onclick="showPage('contact')">Contact</a></li><li><a href="#">Careers</a></li><li><a href="#">Blog</a></li></ul></div>
+    <div class="fcol"><h4>Legal</h4><ul><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Service</a></li><li><a href="#">Refund Policy</a></li><li><a href="#">Disclaimer</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 <span style="color:var(--gold)">PROPDESH</span>. All rights reserved.</span>
+    <span>Made with ❤️ for India's property seekers</span>
+  </div>
+</footer>
+
+<!-- MODALS -->
+<div class="modal-overlay" id="modal-login">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('login')">✕</button>
+    <h2>Welcome Back</h2>
+    <p>Login to your PROPDESH account</p>
+    <div class="mform">
+      <input id="login-email" type="email" placeholder="Email address"/>
+      <input id="login-pass" type="password" placeholder="Password"/>
+      <button class="btn btn-gold" style="width:100%;justify-content:center;padding:.8rem;" onclick="sbLogin()">Login to PROPDESH</button>
+      <div class="divider">or</div>
+      <button class="btn btn-outline" style="width:100%;justify-content:center;" onclick="showToast('🔄 Google login coming soon!')">🔵 Continue with Google</button>
+    </div>
+    <div class="mswitch">No account? <a onclick="closeModal('login');openModal('register')">Register Free</a></div>
+  </div>
+</div>
+<div class="modal-overlay" id="modal-register">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('register')">✕</button>
+    <h2>Join PROPDESH</h2>
+    <p>Create a free account and start saving on property deals</p>
+    <div class="mform">
+      <input id="reg-name" type="text" placeholder="Full name"/>
+      <input id="reg-email" type="email" placeholder="Email address"/>
+      <input id="reg-phone" type="tel" placeholder="Phone number (+91)"/>
+      <input id="reg-pass" type="password" placeholder="Create password"/>
+      <button class="btn btn-gold" style="width:100%;justify-content:center;padding:.8rem;" onclick="sbRegister()">Create Free Account</button>
+      <div class="divider">or</div>
+      <button class="btn btn-outline" style="width:100%;justify-content:center;" onclick="showToast('🔄 Google signup coming soon!')">🔵 Continue with Google</button>
+    </div>
+    <div class="mswitch">Already a member? <a onclick="closeModal('register');openModal('login')">Login</a></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ===================== STARFIELD ===================== */
+(function(){
+  const c=document.getElementById('stars-canvas');
+  const ctx=c.getContext('2d');
+  let stars=[];
+  function resize(){c.width=window.innerWidth;c.height=window.innerHeight;}
+  function init(){
+    stars=[];
+    for(let i=0;i<320;i++){
+      const size=Math.random();
+      stars.push({
+        x:Math.random()*c.width,
+        y:Math.random()*c.height,
+        r:size<0.7?Math.random()*0.8+0.1:Math.random()*2+0.8,
+        o:Math.random()*.65+.1,
+        d:Math.random()*.012+.002,
+        color:size<0.85?`rgba(180,220,255,`:`rgba(255,240,200,`
+      });
+    }
+  }
+  function draw(){
+    ctx.clearRect(0,0,c.width,c.height);
+    stars.forEach(s=>{
+      ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+      ctx.fillStyle=s.color+s.o+')';ctx.fill();
+      s.o+=(Math.random()-.5)*s.d;s.o=Math.max(.03,Math.min(.88,s.o));
+    });
+    requestAnimationFrame(draw);
+  }
+  resize();init();draw();
+  window.addEventListener('resize',()=>{resize();init();});
+})();
+
+/* ===================== BACKGROUND GLOBE ===================== */
+(function(){
+  const bgCanvas=document.getElementById('bg-globe-canvas');
+  if(!bgCanvas)return;
+  const bgCtx=bgCanvas.getContext('2d');
+  let bgAngle=0;
+
+  function resizeBg(){bgCanvas.width=window.innerWidth;bgCanvas.height=window.innerHeight;}
+  resizeBg();
+  window.addEventListener('resize',resizeBg);
+
+  function drawBgGlobe(){
+    bgCtx.clearRect(0,0,bgCanvas.width,bgCanvas.height);
+    const cx=bgCanvas.width*0.5, cy=bgCanvas.height*0.5;
+    const r=Math.min(bgCanvas.width,bgCanvas.height)*0.42;
+
+    // Draw globe lines (latitude)
+    bgCtx.strokeStyle='rgba(56,140,255,0.5)';
+    bgCtx.lineWidth=0.6;
+    for(let lat=-80;lat<=80;lat+=20){
+      const y=r*Math.sin(lat*Math.PI/180);
+      const rx2=Math.cos(lat*Math.PI/180)*r;
+      bgCtx.beginPath();
+      bgCtx.ellipse(cx,cy,rx2,Math.abs(y)*0.28,0,0,Math.PI*2);
+      bgCtx.stroke();
+    }
+
+    // Draw longitude lines (animated rotation)
+    for(let lon=0;lon<180;lon+=20){
+      const angle=(lon+bgAngle)*Math.PI/180;
+      const x1=cx+r*Math.sin(angle);
+      bgCtx.beginPath();
+      bgCtx.ellipse(cx,cy,Math.abs(r*Math.cos(angle)),r,0,0,Math.PI*2);
+      bgCtx.stroke();
+    }
+
+    // Outer circle
+    bgCtx.beginPath();bgCtx.arc(cx,cy,r,0,Math.PI*2);
+    bgCtx.strokeStyle='rgba(56,140,255,0.3)';bgCtx.lineWidth=1;bgCtx.stroke();
+
+    bgAngle=(bgAngle+0.08)%360;
+    requestAnimationFrame(drawBgGlobe);
+  }
+  drawBgGlobe();
+})();
+
+/* ===================== 3D EARTH ===================== */
+(function(){
+  const s=document.createElement('script');
+  s.src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
+  s.onload=boot;
+  document.head.appendChild(s);
+
+  function boot(){
+    const canvas=document.getElementById('earth-canvas');
+    const W=canvas.offsetWidth||640, H=canvas.offsetHeight||640;
+    const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});
+    renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+    renderer.setSize(W,H);
+    renderer.shadowMap.enabled=true;
+
+    const scene=new THREE.Scene();
+    const camera=new THREE.PerspectiveCamera(40,W/H,.1,100);
+    camera.position.z=2.5;
+
+    /* === Earth Texture === */
+    const T=2048, TH=1024;
+    const tc=Object.assign(document.createElement('canvas'),{width:T,height:TH}).getContext('2d');
+
+    // Deep rich ocean
+    const og=tc.createLinearGradient(0,0,0,TH);
+    og.addColorStop(0,'#062a58');
+    og.addColorStop(0.3,'#083870');
+    og.addColorStop(0.5,'#0a4a8a');
+    og.addColorStop(0.7,'#083870');
+    og.addColorStop(1,'#041e40');
+    tc.fillStyle=og;tc.fillRect(0,0,T,TH);
+
+    // Ocean depth variation
+    for(let i=0;i<60;i++){
+      const gx=Math.random()*T,gy=Math.random()*TH;
+      const gr=tc.createRadialGradient(gx,gy,0,gx,gy,Math.random()*120+40);
+      gr.addColorStop(0,'rgba(8,60,130,0.35)');
+      gr.addColorStop(1,'transparent');
+      tc.fillStyle=gr;tc.fillRect(0,0,T,TH);
+    }
+
+    // Ocean shimmer
+    tc.strokeStyle='rgba(80,180,255,0.04)';tc.lineWidth=1.5;
+    for(let i=0;i<T;i+=T/18){tc.beginPath();tc.moveTo(i,0);tc.lineTo(i,TH);tc.stroke();}
+    for(let i=0;i<TH;i+=TH/9){tc.beginPath();tc.moveTo(0,i);tc.lineTo(T,i);tc.stroke();}
+
+    const land=[
+      {cx:1240,cy:190,rx:350,ry:140},  // Eurasia
+      {cx:1060,cy:440,rx:110,ry:220},  // Africa
+      {cx:440,cy:200,rx:170,ry:160},   // North America
+      {cx:510,cy:560,rx:100,ry:200},   // South America
+      {cx:1580,cy:600,rx:120,ry:90},   // Australia
+      {cx:580,cy:76,rx:84,ry:56},      // Greenland
+      {cx:1300,cy:390,rx:56,ry:84},    // India
+      {cx:1600,cy:260,rx:24,ry:56},    // Japan
+      {cx:1480,cy:170,rx:30,ry:20},    // Korea/SE Asia
+    ];
+
+    // Base land — rich green
+    tc.fillStyle='#1a6030';
+    land.forEach(l=>{tc.beginPath();tc.ellipse(l.cx,l.cy,l.rx,l.ry,0,0,Math.PI*2);tc.fill();});
+
+    // Terrain variation — lighter
+    tc.fillStyle='#25823e';
+    [{cx:1190,cy:160,rx:120,ry:60},{cx:1360,cy:180,rx:100,ry:50},
+     {cx:440,cy:180,rx:80,ry:60},{cx:1040,cy:400,rx:60,ry:90}
+    ].forEach(l=>{tc.beginPath();tc.ellipse(l.cx,l.cy,l.rx,l.ry,0,0,Math.PI*2);tc.fill();});
+
+    // Desert regions
+    tc.fillStyle='#8a7040';
+    [{cx:1000,cy:380,rx:60,ry:50},{cx:900,cy:200,rx:80,ry:40}
+    ].forEach(l=>{tc.beginPath();tc.ellipse(l.cx,l.cy,l.rx,l.ry,0,0,Math.PI*2);tc.fill();});
+
+    // Snow caps
+    tc.fillStyle='rgba(210,235,255,0.92)';tc.fillRect(0,0,T,38);tc.fillRect(0,TH-38,T,38);
+    tc.fillStyle='rgba(200,225,255,0.6)';tc.fillRect(0,38,T,15);tc.fillRect(0,TH-53,T,15);
+
+    // India highlight — special glow for PROPDESH 🇮🇳
+    const indiaGlow=tc.createRadialGradient(1300,390,0,1300,390,80);
+    indiaGlow.addColorStop(0,'rgba(255,180,50,0.55)');
+    indiaGlow.addColorStop(0.5,'rgba(255,140,30,0.25)');
+    indiaGlow.addColorStop(1,'transparent');
+    tc.fillStyle=indiaGlow;tc.fillRect(1160,280,280,220);
+
+    // City lights effect on night side
+    tc.fillStyle='rgba(255,220,100,0.5)';
+    [[1230,195,3],[1270,205,2],[1310,185,2],[500,200,3],[480,215,2],[450,195,2],
+     [1310,410,3],[1290,400,2],[1330,395,2]
+    ].forEach(([x,y,r])=>{tc.beginPath();tc.arc(x,y,r,0,Math.PI*2);tc.fill();});
+
+    const earthTex=new THREE.CanvasTexture(tc.canvas);
+    earthTex.anisotropy=renderer.capabilities.getMaxAnisotropy();
+
+    // Specular map (ocean shiny, land matte)
+    const sc=Object.assign(document.createElement('canvas'),{width:T,height:TH}).getContext('2d');
+    sc.fillStyle='#1a5090';sc.fillRect(0,0,T,TH);
+    sc.fillStyle='#061808';
+    land.forEach(l=>{sc.beginPath();sc.ellipse(l.cx,l.cy,l.rx,l.ry,0,0,Math.PI*2);sc.fill();});
+    const specTex=new THREE.CanvasTexture(sc.canvas);
+
+    // Normal/bump texture for terrain feel
+    const nc=Object.assign(document.createElement('canvas'),{width:512,height:256}).getContext('2d');
+    nc.fillStyle='#8080ff';nc.fillRect(0,0,512,256);
+    const normalTex=new THREE.CanvasTexture(nc.canvas);
+
+    const earthMat=new THREE.MeshPhongMaterial({
+      map:earthTex,
+      specularMap:specTex,
+      specular:new THREE.Color(0x3377cc),
+      shininess:28,
+      bumpMap:normalTex,
+      bumpScale:0.05
+    });
+    const earth=new THREE.Mesh(new THREE.SphereGeometry(1,96,96),earthMat);
+    scene.add(earth);
+
+    // Inner atmosphere glow
+    scene.add(new THREE.Mesh(
+      new THREE.SphereGeometry(1.04,64,64),
+      new THREE.MeshPhongMaterial({color:0x2288ee,transparent:true,opacity:.07,side:THREE.FrontSide})
+    ));
+    // Outer atmosphere haze
+    scene.add(new THREE.Mesh(
+      new THREE.SphereGeometry(1.12,64,64),
+      new THREE.MeshPhongMaterial({color:0x0044aa,transparent:true,opacity:.05,side:THREE.BackSide})
+    ));
+    // Atmospheric rim glow
+    scene.add(new THREE.Mesh(
+      new THREE.SphereGeometry(1.08,64,64),
+      new THREE.MeshPhongMaterial({color:0x1166dd,transparent:true,opacity:.035,side:THREE.BackSide})
+    ));
+
+    // Cloud layer — multi-patch
+    const cc2=Object.assign(document.createElement('canvas'),{width:1024,height:512}).getContext('2d');
+    cc2.clearRect(0,0,1024,512);
+    cc2.fillStyle='rgba(255,255,255,0.65)';
+    [
+      [190,76,116,36],[620,110,150,34],[350,230,130,44],[830,150,104,36],
+      [110,290,170,40],[550,310,120,34],[950,250,96,30],[290,116,76,26],
+      [730,270,140,36],[440,60,90,30],[1000,140,80,24],[80,150,70,28],
+      [680,380,100,30],[160,380,120,28],[890,320,80,22],[400,420,110,26],
+      [750,60,90,28],[280,300,80,22],[580,200,70,26],[920,400,85,24],
+    ].forEach(([x,y,w,h])=>{cc2.beginPath();cc2.ellipse(x,y,w,h,0,0,Math.PI*2);cc2.fill();});
+
+    const cloudTex=new THREE.CanvasTexture(cc2.canvas);
+    const clouds=new THREE.Mesh(
+      new THREE.SphereGeometry(1.015,64,64),
+      new THREE.MeshPhongMaterial({map:cloudTex,transparent:true,opacity:.5,depthWrite:false})
+    );
+    scene.add(clouds);
+
+    // Lighting — sun from upper left (warm)
+    const sun=new THREE.DirectionalLight(0xd0e8ff,1.8);
+    sun.position.set(-5,2,3.5);
+    sun.castShadow=true;
+    scene.add(sun);
+
+    // Ambient — deep blue-dark
+    scene.add(new THREE.AmbientLight(0x071830,.55));
+
+    // Fill light — subtle blue from opposite
+    const fill=new THREE.DirectionalLight(0x1144aa,.25);
+    fill.position.set(5,-1,-3);
+    scene.add(fill);
+
+    // Subtle rim light from below
+    const rim=new THREE.DirectionalLight(0x0033aa,.12);
+    rim.position.set(0,-3,0);
+    scene.add(rim);
+
+    // Earth tilt (like real Earth ~23.5°)
+    earth.rotation.x=0.41;
+    clouds.rotation.x=0.41;
+
+    let t=0;
+    function animate(){
+      requestAnimationFrame(animate);
+      t+=0.0012;
+      earth.rotation.y+=.0014;
+      clouds.rotation.y+=.0018;
+      // Subtle wobble
+      earth.rotation.z=Math.sin(t)*0.003;
+      renderer.render(scene,camera);
+    }
+    animate();
+
+    window.addEventListener('resize',()=>{
+      const W2=canvas.offsetWidth,H2=canvas.offsetHeight;
+      camera.aspect=W2/H2;camera.updateProjectionMatrix();
+      renderer.setSize(W2,H2);
+    });
+  }
+})();
+
+/* ===================== SUPABASE CONFIG ===================== */
+const SB_URL = 'https://ftpindhgjhwfhgtfqnxe.supabase.co';
+const SB_KEY = 'sb_publishable_XgZuWlFqYRAGuGSwYH-SWg__h0Aqiim';
+
+const sb = {
+  headers: { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY, 'Content-Type': 'application/json', 'Prefer': 'return=representation' },
+  async get(table, params='') {
+    const r = await fetch(`${SB_URL}/rest/v1/${table}?${params}`, { headers: this.headers });
+    return r.ok ? r.json() : [];
+  },
+  async post(table, body) {
+    const r = await fetch(`${SB_URL}/rest/v1/${table}`, { method:'POST', headers: this.headers, body: JSON.stringify(body) });
+    return r.ok ? r.json() : null;
+  },
+  async auth(endpoint, body) {
+    const r = await fetch(`${SB_URL}/auth/v1/${endpoint}`, { method:'POST', headers:{ 'apikey':SB_KEY,'Content-Type':'application/json' }, body: JSON.stringify(body) });
+    return r.json();
+  },
+  async upload(bucket, path, file) {
+    const r = await fetch(`${SB_URL}/storage/v1/object/${bucket}/${path}`, {
+      method:'POST',
+      headers:{ 'apikey':SB_KEY, 'Authorization':'Bearer '+(this._token||SB_KEY) },
+      body: file
+    });
+    return r.ok ? `${SB_URL}/storage/v1/object/public/${bucket}/${path}` : null;
+  },
+  _token: null, _user: null
+};
+
+/* ===================== AUTH STATE ===================== */
+function updateNavAuth() {
+  const actions = document.querySelector('.nav-actions');
+  if (sb._user) {
+    const name = sb._user.user_metadata?.full_name || sb._user.email?.split('@')[0] || 'User';
+    actions.innerHTML = `
+      <span style="color:var(--text-muted);font-size:.85rem;">👤 ${name}</span>
+      <button class="btn btn-outline" onclick="sbLogout()">Logout</button>
+      <button class="btn btn-gold" onclick="showPage('post')">+ List Property</button>`;
+  } else {
+    actions.innerHTML = `
+      <button class="btn btn-outline" onclick="openModal('login')">Login</button>
+      <button class="btn btn-gold" onclick="openModal('register')">Register Free</button>`;
+  }
+}
+
+async function sbLogin() {
+  const email = document.getElementById('login-email').value.trim();
+  const pass  = document.getElementById('login-pass').value;
+  if (!email || !pass) return showToast('⚠️ Email aur password dono bharein');
+  showToast('🔄 Login ho raha hai...');
+  const res = await sb.auth('token?grant_type=password', { email, password: pass });
+  if (res.access_token) {
+    sb._token = res.access_token;
+    sb._user  = res.user;
+    sb.headers['Authorization'] = 'Bearer ' + res.access_token;
+    closeModal('login');
+    updateNavAuth();
+    showToast('✅ Welcome back, ' + (res.user.user_metadata?.full_name || email) + '!');
+  } else {
+    showToast('❌ ' + (res.error_description || res.msg || 'Login failed'));
+  }
+}
+
+async function sbRegister() {
+  const name  = document.getElementById('reg-name').value.trim();
+  const email = document.getElementById('reg-email').value.trim();
+  const phone = document.getElementById('reg-phone').value.trim();
+  const pass  = document.getElementById('reg-pass').value;
+  if (!name||!email||!pass) return showToast('⚠️ Sabhi fields bharein');
+  showToast('🔄 Account ban raha hai...');
+  const res = await sb.auth('signup', { email, password: pass, data:{ full_name:name, phone } });
+  if (res.user || res.id) {
+    closeModal('register');
+    showToast('🎉 Welcome PROPDESH par, ' + name + '! Email verify karein.');
+  } else {
+    showToast('❌ ' + (res.error_description || res.msg || 'Registration failed'));
+  }
+}
+
+async function sbLogout() {
+  sb._token = null; sb._user = null;
+  sb.headers['Authorization'] = 'Bearer ' + SB_KEY;
+  updateNavAuth();
+  showToast('👋 Logged out successfully');
+  showPage('home');
+}
+
+/* ===================== PROPERTIES FROM SUPABASE ===================== */
+const fallbackProps = [
+  {id:1,listing_type:'buy',title:'3BHK Sea View Apartment',location:'Bandra West, Mumbai',price:24000000,beds:3,baths:2,area_sqft:1450,icon:'🏢',image_url:null},
+  {id:2,listing_type:'rent',title:'2BHK Modern Flat',location:'Koramangala, Bangalore',price:32000,beds:2,baths:2,area_sqft:980,icon:'🏠',image_url:null},
+  {id:3,listing_type:'sell',title:'Independent Villa with Garden',location:'DLF Phase 2, Gurugram',price:48000000,beds:4,baths:4,area_sqft:3200,icon:'🏡',image_url:null},
+  {id:4,listing_type:'buy',title:'1BHK Studio Apartment',location:'Andheri East, Mumbai',price:6800000,beds:1,baths:1,area_sqft:480,icon:'🏗️',image_url:null},
+  {id:5,listing_type:'rent',title:'Commercial Office Space',location:'Cyber City, Hyderabad',price:85000,beds:0,baths:3,area_sqft:4500,icon:'🏬',image_url:null},
+  {id:6,listing_type:'sell',title:'Luxury Penthouse',location:'Marine Drive, Mumbai',price:120000000,beds:5,baths:5,area_sqft:5800,icon:'🏙️',image_url:null},
+];
+
+function formatPrice(p, type) {
+  if (type === 'rent') return '₹' + p.toLocaleString('en-IN') + '/mo';
+  if (p >= 10000000) return '₹' + (p/10000000).toFixed(1) + ' Cr';
+  if (p >= 100000)   return '₹' + (p/100000).toFixed(0) + ' L';
+  return '₹' + p.toLocaleString('en-IN');
+}
+
+const iconMap = { buy:'🏢', sell:'🏡', rent:'🏠' };
+const bgMap   = {
+  buy:'linear-gradient(135deg,#031420,#0a3d7a)',
+  sell:'linear-gradient(135deg,#150b2a,#3a1060)',
+  rent:'linear-gradient(135deg,#031510,#0a5030)'
+};
+
+function cardHTML(p) {
+  const type = p.listing_type || 'buy';
+  const img  = p.image_url
+    ? `<img src="${p.image_url}" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'">`
+    : `<div class="prop-img-placeholder">${p.icon || iconMap[type] || '🏠'}</div>`;
+  return `
+    <div class="prop-card" onclick="sb._user?showToast('📞 Owner: '+('${p.contact_phone||''}' || 'Login se dekhen')):openModal('login')">
+      <div class="prop-img" style="background:${bgMap[type]};">${img}
+        <div class="ptag ptag-${type}">${type}</div>
+        <button class="pfav" onclick="event.stopPropagation();this.textContent=this.textContent==='🤍'?'❤️':'🤍'">🤍</button>
+      </div>
+      <div class="pbody">
+        <div class="pprice">${formatPrice(p.price||0,type)}</div>
+        <div class="ptitle">${p.title||'Property'}</div>
+        <div class="ploc">${p.location||''}</div>
+        <div class="pmeta">
+          ${(p.beds||0)>0?`<span>🛏 ${p.beds} Bed</span>`:''}
+          ${(p.baths||0)>0?`<span>🚿 ${p.baths} Bath</span>`:''}
+          ${p.area_sqft?`<span>📐 ${Number(p.area_sqft).toLocaleString('en-IN')} sqft</span>`:''}
+        </div>
+      </div>
+    </div>`;
+}
+
+function showLoading(cid) {
+  const el = document.getElementById(cid);
+  if (el) el.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--text-muted);">
+    <div style="font-size:2rem;margin-bottom:.8rem;animation:spin 1s linear infinite;display:inline-block;">🌐</div>
+    <div>Supabase se properties load ho rahi hain...</div></div>`;
+}
+
+async function fetchAndRender(cid, params='') {
+  showLoading(cid);
+  let data = await sb.get('properties', params + '&order=created_at.desc');
+  if (!data || data.length === 0) data = fallbackProps.filter(p => {
+    if (params.includes('listing_type=eq.buy'))  return p.listing_type==='buy';
+    if (params.includes('listing_type=eq.sell')) return p.listing_type==='sell';
+    if (params.includes('listing_type=eq.rent')) return p.listing_type==='rent';
+    return true;
+  });
+  const el = document.getElementById(cid);
+  if (el) el.innerHTML = data.length ? data.map(cardHTML).join('') :
+    `<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--text-muted);">Abhi koi listing nahi hai. Pehle list karein! 🏠</div>`;
+}
+
+/* ===================== SEARCH ===================== */
+async function searchProperties() {
+  const type   = document.getElementById('s-type').value;
+  const loc    = document.getElementById('s-loc').value.trim();
+  const budget = document.getElementById('s-budget').value;
+  let params = '';
+  if (type && type !== 'all') params += `&property_type=eq.${encodeURIComponent(type)}`;
+  if (loc) params += `&location=ilike.*${encodeURIComponent(loc)}*`;
+  if (budget) {
+    const budgetMap = {
+      'under20':  'price=lte.2000000',
+      '20to50':   'price=gte.2000000&price=lte.5000000',
+      '50to1cr':  'price=gte.5000000&price=lte.10000000',
+      '1to5cr':   'price=gte.10000000&price=lte.50000000',
+      '5crplus':  'price=gte.50000000'
+    };
+    if (budgetMap[budget]) params += '&' + budgetMap[budget];
+  }
+  showPage('buy');
+  await fetchAndRender('buy-grid', params.replace(/^&/,''));
+}
+
+/* ===================== POST PROPERTY ===================== */
+async function submitProperty() {
+  if (!sb._user) { openModal('login'); return showToast('⚠️ Pehle login karein'); }
+  const title   = document.getElementById('p-title').value.trim();
+  const loc     = document.getElementById('p-loc').value.trim();
+  const price   = parseFloat(document.getElementById('p-price').value);
+  const area    = parseFloat(document.getElementById('p-area').value);
+  const ptype   = document.getElementById('p-type').value;
+  const ltype   = document.getElementById('p-ltype').value;
+  const beds    = parseInt(document.getElementById('p-beds').value)||0;
+  const baths   = parseInt(document.getElementById('p-baths').value)||0;
+  const desc    = document.getElementById('p-desc').value.trim();
+  const phone   = document.getElementById('p-phone').value.trim();
+  const imgFile = document.getElementById('p-img').files[0];
+  if (!title||!loc||!price) return showToast('⚠️ Title, location aur price zaroori hai');
+  showToast('🔄 Property submit ho rahi hai...');
+  let image_url = null;
+  if (imgFile) {
+    const path = `${sb._user.id}/${Date.now()}_${imgFile.name.replace(/\s+/g,'_')}`;
+    image_url = await sb.upload('property-images', path, imgFile);
+  }
+  const payload = { title, location:loc, price, area_sqft:area, property_type:ptype,
+    listing_type:ltype, beds, baths, description:desc, contact_phone:phone,
+    image_url, user_id:sb._user.id, status:'pending' };
+  const res = await sb.post('properties', payload);
+  if (res) {
+    showToast('✅ Property submit! 24 ghante mein review hogi.');
+    document.getElementById('post-form').reset();
+  } else {
+    showToast('❌ Submit failed. Dobara try karein.');
+  }
+}
+
+/* ===================== FILTER / PAGE HELPERS ===================== */
+async function showPage(n) {
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+n)?.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  if (n==='home') await fetchAndRender('featured-grid');
+  if (n==='buy')  await fetchAndRender('buy-grid',  'listing_type=eq.buy');
+  if (n==='sell') await fetchAndRender('sell-grid', 'listing_type=eq.sell');
+  if (n==='rent') await fetchAndRender('rent-grid', 'listing_type=eq.rent');
+}
+
+async function filterProps(btn, type) {
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  const params = type==='all' ? '' : `listing_type=eq.${type}`;
+  await fetchAndRender('featured-grid', params);
+}
+
+function openModal(n)  { document.getElementById('modal-'+n)?.classList.add('open'); }
+function closeModal(n) { document.getElementById('modal-'+n)?.classList.remove('open'); }
+document.querySelectorAll('.modal-overlay').forEach(el=>el.addEventListener('click',e=>{if(e.target===el)el.classList.remove('open');}));
+
+let tt;
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),3500);
+}
+
+// init
+updateNavAuth();
+fetchAndRender('featured-grid');
+</script>
+</body>
+</html>
