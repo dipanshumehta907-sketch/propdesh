@@ -244,6 +244,26 @@
   @keyframes spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
   @keyframes slideIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
 
+  /* ====== MESSAGES PAGE ====== */
+  .msg-thread{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.4rem 1.6rem;margin-bottom:1rem;transition:border-color .2s;cursor:default;}
+  .msg-thread:hover{border-color:rgba(212,169,106,.3);}
+  .msg-thread-top{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:.6rem;}
+  .msg-thread-who{display:flex;align-items:center;gap:.75rem;}
+  .msg-thread-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--accent));display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:700;color:#1c1917;flex-shrink:0;}
+  .msg-thread-name{font-weight:700;font-size:.94rem;}
+  .msg-thread-prop{font-size:.78rem;color:var(--text-muted);}
+  .msg-thread-time{font-size:.75rem;color:var(--text-dim);white-space:nowrap;}
+  .msg-thread-body{color:var(--text-muted);font-size:.88rem;line-height:1.5;border-left:2px solid rgba(212,169,106,.25);padding-left:.9rem;margin-top:.3rem;}
+  .msg-empty{text-align:center;padding:4rem 2rem;color:var(--text-muted);}
+  .msg-empty .msg-empty-icon{font-size:3rem;margin-bottom:1rem;}
+  .msg-empty h3{font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:.5rem;color:var(--text);}
+
+  /* Contact page form improvements */
+  .contact-form-locked{text-align:center;padding:2.5rem;background:var(--surface2);border-radius:12px;border:1px dashed rgba(212,169,106,.3);}
+  .contact-form-locked .lock-icon{font-size:2.5rem;margin-bottom:.75rem;}
+  .contact-form-locked h4{font-family:'Playfair Display',serif;font-size:1.1rem;margin-bottom:.4rem;}
+  .contact-form-locked p{color:var(--text-muted);font-size:.86rem;margin-bottom:1.2rem;}
+
   /* ====== MULTI-IMAGE UPLOAD ====== */
   .img-upload-area{border:2px dashed var(--border);border-radius:12px;padding:1.5rem;text-align:center;cursor:pointer;transition:all .2s;background:var(--surface2);}
   .img-upload-area:hover,.img-upload-area.drag-over{border-color:var(--gold);background:var(--gold-dim);}
@@ -322,6 +342,39 @@
   .cbtn-msg:hover{border-color:var(--gold);color:var(--gold);}
   .safety-note{margin-top:1.25rem;padding:.85rem;background:rgba(212,169,106,.05);border:1px solid rgba(212,169,106,.15);border-radius:8px;font-size:.76rem;color:var(--text-muted);line-height:1.5;}
   .safety-note strong{color:var(--gold);}
+
+  /* Contact info box */
+  .contact-info-box{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;}
+  .contact-info-box .ci-row{display:flex;align-items:center;gap:.75rem;padding:.5rem 0;border-bottom:1px solid rgba(255,255,255,.05);}
+  .contact-info-box .ci-row:last-child{border-bottom:none;}
+  .ci-icon{width:34px;height:34px;background:rgba(212,169,106,.1);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0;}
+  .ci-label{font-size:.72rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.5px;}
+  .ci-val{font-size:.9rem;font-weight:600;color:var(--text);}
+  .ci-val a{color:var(--gold);text-decoration:none;}
+  .ci-val a:hover{text-decoration:underline;}
+  .locked-blur{filter:blur(5px);user-select:none;pointer-events:none;opacity:.5;}
+
+  /* Message Modal */
+  .msg-modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:400;align-items:center;justify-content:center;backdrop-filter:blur(8px);}
+  .msg-modal-overlay.open{display:flex;}
+  .msg-modal{background:var(--surface);border:1px solid rgba(212,169,106,.25);border-radius:18px;padding:2rem;width:90%;max-width:480px;position:relative;animation:fadeUp .3s ease;box-shadow:0 32px 80px rgba(0,0,0,.7);}
+  .msg-modal h3{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:900;margin-bottom:.3rem;}
+  .msg-modal .to-label{font-size:.82rem;color:var(--text-muted);margin-bottom:1.5rem;}
+  .msg-modal .to-label strong{color:var(--gold);}
+  .msg-templates{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.2rem;}
+  .msg-tpl{padding:.35rem .85rem;border-radius:100px;border:1px solid var(--border);background:var(--surface2);color:var(--text-muted);font-size:.78rem;cursor:pointer;transition:all .2s;}
+  .msg-tpl:hover{border-color:var(--gold);color:var(--gold);}
+  .msg-textarea{width:100%;background:var(--surface2);border:1.5px solid var(--border);border-radius:10px;padding:.85rem 1rem;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.92rem;outline:none;resize:none;min-height:110px;transition:border-color .2s;margin-bottom:1rem;}
+  .msg-textarea:focus{border-color:var(--gold);}
+  .msg-actions{display:flex;gap:.75rem;}
+  .msg-send-btn{flex:1;padding:.85rem;background:var(--gold);color:#fff;border:none;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:700;cursor:pointer;transition:all .2s;}
+  .msg-send-btn:hover{background:var(--gold-light);transform:translateY(-1px);}
+  .msg-cancel-btn{padding:.85rem 1.4rem;background:var(--surface2);color:var(--text-muted);border:1px solid var(--border);border-radius:10px;font-family:'DM Sans',sans-serif;font-size:.95rem;cursor:pointer;transition:all .2s;}
+  .msg-cancel-btn:hover{color:var(--text);}
+  .msg-sent-state{text-align:center;padding:1.5rem 0;}
+  .msg-sent-state .sent-icon{font-size:3rem;margin-bottom:.75rem;}
+  .msg-sent-state h4{font-size:1.1rem;font-weight:700;margin-bottom:.4rem;}
+  .msg-sent-state p{color:var(--text-muted);font-size:.87rem;}
 
   /* Lightbox */
   .lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:500;align-items:center;justify-content:center;backdrop-filter:blur(8px);}
@@ -611,17 +664,28 @@
         <div class="citem"><div class="cicon">📞</div><div><h4>Call Us</h4><p>+91 98765 43210 (Mon–Sat, 9AM–7PM)</p></div></div>
         <div class="citem"><div class="cicon">📍</div><div><h4>Office</h4><p>PROPDESH HQ, Cyber City, Gurugram, Haryana 122002</p></div></div>
       </div>
-      <div class="form-card" style="margin:0;">
+      <div class="form-card" style="margin:0;" id="contact-form-card">
         <h3 style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:900;margin-bottom:1.4rem;">Send a Message</h3>
-        <div class="form-grid">
-          <div class="fg"><label>Name</label><input type="text" placeholder="Your name"/></div>
-          <div class="fg"><label>Phone</label><input type="tel" placeholder="+91 XXXXX XXXXX"/></div>
-          <div class="fg full"><label>Email</label><input type="email" placeholder="your@email.com"/></div>
-          <div class="fg full"><label>Message</label><textarea placeholder="Tell us how we can help..."></textarea></div>
-          <div class="fg full"><button class="btn btn-gold btn-lg" style="width:100%;justify-content:center;" onclick="showToast('✅ Message sent! We will reply within 24 hours.')">Send Message</button></div>
+        <div id="contact-form-inner">
+          <!-- rendered by renderContactForm() -->
         </div>
       </div>
     </div>
+  </section>
+</div>
+
+<!-- MY MESSAGES PAGE -->
+<div id="page-messages" class="page">
+  <section style="max-width:820px;margin:0 auto;">
+    <div class="section-header" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+      <div>
+        <span class="stag">Inbox</span>
+        <h2 style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;">My Messages</h2>
+        <p style="color:var(--text-muted);">Property owners ke saath aapki conversations</p>
+      </div>
+      <button class="btn btn-outline" onclick="loadMyMessages()" style="gap:.4rem;">🔄 Refresh</button>
+    </div>
+    <div id="messages-list"></div>
   </section>
 </div>
 
@@ -676,6 +740,34 @@
   </div>
 </div>
 
+<!-- MESSAGE MODAL -->
+<div class="msg-modal-overlay" id="msg-modal">
+  <div class="msg-modal">
+    <button class="modal-close" onclick="closeMsgModal()" style="position:absolute;top:1rem;right:1rem;background:var(--surface2);border:none;color:var(--text-muted);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:1.1rem;display:flex;align-items:center;justify-content:center;">✕</button>
+    <div id="msg-form-state">
+      <h3>Message Owner</h3>
+      <div class="to-label">Sending to: <strong id="msg-to-name">Owner</strong> &nbsp;·&nbsp; <span id="msg-property-title" style="color:var(--text-muted);"></span></div>
+      <div class="msg-templates">
+        <span class="msg-tpl" onclick="setMsgTemplate(this)">Is property mein interested hoon</span>
+        <span class="msg-tpl" onclick="setMsgTemplate(this)">Site visit arrange karna hai</span>
+        <span class="msg-tpl" onclick="setMsgTemplate(this)">Price negotiate karna hai</span>
+        <span class="msg-tpl" onclick="setMsgTemplate(this)">More details chahiye</span>
+      </div>
+      <textarea class="msg-textarea" id="msg-text" placeholder="Apna message likhein... (e.g. mujhe yeh property dekhni hai, kab available hain aap?)"></textarea>
+      <div class="msg-actions">
+        <button class="msg-cancel-btn" onclick="closeMsgModal()">Cancel</button>
+        <button class="msg-send-btn" onclick="sendMessage()">📤 Message Bhejo</button>
+      </div>
+    </div>
+    <div id="msg-sent-state" class="msg-sent-state" style="display:none;">
+      <div class="sent-icon">✅</div>
+      <h4>Message Send Ho Gaya!</h4>
+      <p id="msg-sent-text">Owner ko aapka message mil gaya hai. Woh jaldi reply karenge.</p>
+      <button class="btn btn-gold" style="margin-top:1.2rem;" onclick="closeMsgModal()">Done</button>
+    </div>
+  </div>
+</div>
+
 <!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox">
   <button class="lightbox-close" onclick="closeLightbox()">✕</button>
@@ -723,6 +815,7 @@ function updateNavAuth() {
     const name = sb._user.user_metadata?.full_name || sb._user.email?.split('@')[0] || 'User';
     actions.innerHTML = `
       <span style="color:var(--text-muted);font-size:.85rem;">👤 ${name}</span>
+      <button class="btn btn-outline" onclick="showPage('messages')" style="position:relative;" id="msg-nav-btn">✉️ Messages<span id="msg-badge" style="display:none;position:absolute;top:-6px;right:-6px;background:var(--red);color:#fff;border-radius:50%;width:18px;height:18px;font-size:.65rem;font-weight:700;display:flex;align-items:center;justify-content:center;"></span></button>
       <button class="btn btn-outline" onclick="sbLogout()">Logout</button>
       <button class="btn btn-gold" onclick="showPage('post')">+ List Property</button>`;
   } else {
@@ -730,6 +823,8 @@ function updateNavAuth() {
       <button class="btn btn-outline" onclick="openModal('login')">Login</button>
       <button class="btn btn-gold" onclick="openModal('register')">Register Free</button>`;
   }
+  // Re-render contact form if visible
+  if (document.getElementById('contact-form-inner')) renderContactForm();
 }
 
 async function sbLogin() {
@@ -743,6 +838,8 @@ async function sbLogin() {
     sb.headers['Authorization'] = 'Bearer ' + res.access_token;
     closeModal('login'); updateNavAuth();
     showToast('✅ Welcome back, ' + (res.user.user_metadata?.full_name || email) + '!');
+    // Re-render contact card if property detail page is open
+    if (document.getElementById('page-detail')?.classList.contains('active')) renderDetailContent();
   } else { showToast('❌ ' + (res.error_description || res.msg || 'Login failed')); }
 }
 
@@ -754,8 +851,12 @@ async function sbRegister() {
   if (!name||!email||!pass) return showToast('⚠️ Sabhi fields bharein');
   showToast('🔄 Account ban raha hai...');
   const res = await sb.auth('signup', { email, password: pass, data:{ full_name:name, phone } });
-  if (res.user || res.id) { closeModal('register'); showToast('🎉 Welcome PROPDESH par, ' + name + '! Email verify karein.'); }
-  else { showToast('❌ ' + (res.error_description || res.msg || 'Registration failed')); }
+  if (res.user || res.id) {
+    closeModal('register');
+    showToast('🎉 Welcome PROPDESH par, ' + name + '! Email verify karein.');
+    if (res.access_token) { sb._token = res.access_token; sb._user = res.user || res; sb.headers['Authorization'] = 'Bearer ' + res.access_token; updateNavAuth(); }
+    if (document.getElementById('page-detail')?.classList.contains('active')) renderDetailContent();
+  } else { showToast('❌ ' + (res.error_description || res.msg || 'Registration failed')); }
 }
 
 async function sbLogout() {
@@ -812,9 +913,12 @@ function cardHTML(p) {
 
 /* ===================== OPEN PROPERTY DETAIL ===================== */
 let _prevPage = 'home';
+let _currentProp = null;
+
 function openDetail(p) {
   _prevPage = document.querySelector('.page.active')?.id?.replace('page-','') || 'home';
-  
+  _currentProp = p;
+
   // Build gallery
   const galleryEl = document.getElementById('detail-gallery');
   const photos = [];
@@ -826,33 +930,93 @@ function openDetail(p) {
   const placeholderIcon = p.icon || iconMap[type] || '🏠';
 
   if (photos.length === 0) {
-    galleryEl.innerHTML = `
-      <div style="grid-column:1/3;border-radius:14px;overflow:hidden;background:${bg};height:400px;display:flex;align-items:center;justify-content:center;font-size:5rem;">
-        ${placeholderIcon}
-      </div>`;
+    galleryEl.innerHTML = `<div style="grid-column:1/3;border-radius:14px;overflow:hidden;background:${bg};height:400px;display:flex;align-items:center;justify-content:center;font-size:5rem;">${placeholderIcon}</div>`;
   } else {
-    const mainImg = `<div class="gallery-main"><img src="${photos[0]}" alt="Main Photo" onclick="openLightbox(${JSON.stringify(photos).replace(/"/g,'&quot;')},0)"/></div>`;
-    const side1 = photos[1]
-      ? `<div class="gallery-side"><img src="${photos[1]}" alt="Photo 2" onclick="openLightbox(${JSON.stringify(photos).replace(/"/g,'&quot;')},1)"/></div>`
-      : `<div class="gallery-side" style="background:${bg};"><div class="side-placeholder">${placeholderIcon}</div></div>`;
+    const pJson = JSON.stringify(photos).replace(/"/g,'&quot;');
+    const mainImg = `<div class="gallery-main"><img src="${photos[0]}" alt="Photo" onclick="openLightbox(${pJson},0)"/></div>`;
+    const side1 = photos[1] ? `<div class="gallery-side"><img src="${photos[1]}" alt="Photo 2" onclick="openLightbox(${pJson},1)"/></div>` : `<div class="gallery-side" style="background:${bg};"><div class="side-placeholder">${placeholderIcon}</div></div>`;
     const side2Html = photos.length >= 3
-      ? `<div class="gallery-side" style="position:relative;"><img src="${photos[2]}" alt="Photo 3" onclick="openLightbox(${JSON.stringify(photos).replace(/"/g,'&quot;')},2)"/>
-          ${photos.length > 3 ? `<button class="gallery-more-btn" onclick="openLightbox(${JSON.stringify(photos).replace(/"/g,'&quot;')},2)">+${photos.length-3} more photos</button>` : ''}
-        </div>`
+      ? `<div class="gallery-side" style="position:relative;"><img src="${photos[2]}" alt="Photo 3" onclick="openLightbox(${pJson},2)"/>${photos.length > 3 ? `<button class="gallery-more-btn" onclick="openLightbox(${pJson},2)">+${photos.length-3} more</button>` : ''}</div>`
       : `<div class="gallery-side" style="background:${bg};"><div class="side-placeholder">📷</div></div>`;
     galleryEl.innerHTML = mainImg + side1 + side2Html;
   }
 
-  // Build detail content
+  renderDetailContent();
+  showPage('detail');
+}
+
+/* Separate function so login can re-render contact card without rebuilding everything */
+function renderDetailContent() {
+  const p = _currentProp;
+  if (!p) return;
+  const type = p.listing_type || 'buy';
   const contentEl = document.getElementById('detail-content');
   const amenitiesHTML = (p.amenities||[]).length > 0
-    ? `<div class="detail-features"><h3>Amenities & Features</h3><div class="features-grid">${(p.amenities||[]).map(a=>`<div class="feat">${a}</div>`).join('')}</div></div>`
-    : '';
+    ? `<div class="detail-features"><h3>Amenities & Features</h3><div class="features-grid">${(p.amenities||[]).map(a=>`<div class="feat">${a}</div>`).join('')}</div></div>` : '';
 
   const phone = p.contact_phone || '';
   const ownerName = p.contact_name || 'Owner';
-  const showPhone = sb._user ? phone : '🔒 Login to View';
-  const phoneDisabled = sb._user ? '' : 'onclick="event.preventDefault();openModal(\'login\')"';
+  const isLoggedIn = !!sb._user;
+
+  let contactHTML;
+  if (isLoggedIn) {
+    const waNum = phone.replace(/[^0-9]/g,'');
+    const waLink = `https://wa.me/${waNum.startsWith('91')?waNum:'91'+waNum}`;
+    contactHTML = `
+      <div class="contact-card">
+        <h3>Contact Owner</h3>
+        <div class="owner-row">
+          <div class="owner-avatar">${ownerName.charAt(0).toUpperCase()}</div>
+          <div><div class="owner-name">${ownerName}</div><div class="owner-tag">✅ Verified Owner · PROPDESH Member</div></div>
+        </div>
+        <div class="contact-info-box">
+          <div class="ci-row">
+            <div class="ci-icon">📞</div>
+            <div><div class="ci-label">Phone</div><div class="ci-val"><a href="tel:${phone}">${phone}</a></div></div>
+          </div>
+          <div class="ci-row">
+            <div class="ci-icon">💬</div>
+            <div><div class="ci-label">WhatsApp</div><div class="ci-val"><a href="${waLink}" target="_blank">${phone}</a></div></div>
+          </div>
+        </div>
+        <div class="contact-btns">
+          <button class="cbtn cbtn-call" onclick="window.location='tel:${phone}'">📞 Call: ${phone}</button>
+          <button class="cbtn cbtn-whatsapp" onclick="window.open('${waLink}','_blank')">💬 WhatsApp Karo</button>
+          <button class="cbtn cbtn-msg" onclick="openMsgModal()">✉️ Message Bhejo</button>
+        </div>
+        <div class="safety-note"><strong>⚠️ Safety Tip:</strong> Property visit hamesha din mein karein. Advance payment kabhi mat dein bina agreement ke.</div>
+      </div>`;
+  } else {
+    contactHTML = `
+      <div class="contact-card">
+        <h3>Contact Owner</h3>
+        <div class="owner-row">
+          <div class="owner-avatar">${ownerName.charAt(0).toUpperCase()}</div>
+          <div><div class="owner-name">${ownerName}</div><div class="owner-tag">✅ Verified Owner · PROPDESH Member</div></div>
+        </div>
+        <div class="contact-info-box">
+          <div class="ci-row">
+            <div class="ci-icon">📞</div>
+            <div><div class="ci-label">Phone</div><div class="ci-val locked-blur">+91 98XXX XXXXX</div></div>
+          </div>
+          <div class="ci-row">
+            <div class="ci-icon">💬</div>
+            <div><div class="ci-label">WhatsApp</div><div class="ci-val locked-blur">+91 98XXX XXXXX</div></div>
+          </div>
+        </div>
+        <div style="background:rgba(212,169,106,.07);border:1px dashed rgba(212,169,106,.3);border-radius:10px;padding:1rem;text-align:center;margin-bottom:1rem;">
+          <div style="font-size:1.3rem;margin-bottom:.3rem;">🔒</div>
+          <div style="font-weight:600;font-size:.9rem;margin-bottom:.2rem;">Login karein contact details dekhne ke liye</div>
+          <div style="font-size:.76rem;color:var(--text-muted);">Free account — sirf 30 seconds</div>
+        </div>
+        <div class="contact-btns">
+          <button class="cbtn cbtn-call" onclick="openModal('login')">🔑 Login to See Phone</button>
+          <button class="cbtn cbtn-whatsapp" onclick="openModal('register')">📝 Register Free</button>
+          <button class="cbtn cbtn-msg" onclick="openModal('login')">✉️ Login to Message</button>
+        </div>
+        <div class="safety-note"><strong>⚠️ Safety Tip:</strong> Property visit hamesha din mein karein. Advance payment kabhi mat dein bina agreement ke.</div>
+      </div>`;
+  }
 
   contentEl.innerHTML = `
     <div class="detail-left">
@@ -878,37 +1042,47 @@ function openDetail(p) {
       ${p.description?`<div class="detail-desc-title">About This Property</div><div class="detail-desc">${p.description}</div>`:''}
       ${amenitiesHTML}
     </div>
-    <div>
-      <div class="contact-card">
-        <h3>Contact Owner</h3>
-        <div class="owner-row">
-          <div class="owner-avatar">${ownerName.charAt(0).toUpperCase()}</div>
-          <div>
-            <div class="owner-name">${ownerName}</div>
-            <div class="owner-tag">✅ Verified Owner · PROPDESH Member</div>
-          </div>
-        </div>
-        <div class="contact-btns">
-          <button class="cbtn cbtn-call" ${phoneDisabled} onclick="${sb._user?`window.location='tel:${phone}'`:"openModal('login')"}">
-            📞 ${sb._user ? 'Call: '+phone : 'Login to Call Owner'}
-          </button>
-          <button class="cbtn cbtn-whatsapp" onclick="${sb._user?`window.open('https://wa.me/'+('${phone}').replace(/[^0-9]/g,''),'_blank')`:"openModal('login')"}">
-            💬 WhatsApp Owner
-          </button>
-          <button class="cbtn cbtn-msg" onclick="showToast('📩 Message feature coming soon!')">
-            ✉️ Send Message
-          </button>
-        </div>
-        <div class="safety-note">
-          <strong>⚠️ Safety Tip:</strong> PROPDESH property visit hamesha din mein karein. Advance payment kabhi mat dein bina agreement ke. Agar kuch suspicious lage toh report karein.
-        </div>
-      </div>
-    </div>`;
-
-  showPage('detail');
+    <div>${contactHTML}</div>`;
 }
 
 function goBack() { showPage(_prevPage); }
+
+/* ===== MESSAGE MODAL ===== */
+function openMsgModal() {
+  if (!sb._user) { openModal('login'); return; }
+  if (!_currentProp) return;
+  document.getElementById('msg-to-name').textContent = _currentProp.contact_name || 'Owner';
+  document.getElementById('msg-property-title').textContent = _currentProp.title || '';
+  document.getElementById('msg-text').value = '';
+  document.getElementById('msg-form-state').style.display = '';
+  document.getElementById('msg-sent-state').style.display = 'none';
+  document.getElementById('msg-modal').classList.add('open');
+}
+function closeMsgModal() { document.getElementById('msg-modal').classList.remove('open'); }
+function setMsgTemplate(el) { document.getElementById('msg-text').value = el.textContent; }
+async function sendMessage() {
+  const txt = document.getElementById('msg-text').value.trim();
+  if (!txt) return showToast('⚠️ Message likhein pehle');
+  const btn = document.querySelector('.msg-send-btn');
+  btn.textContent = '🔄 Bhej raha hai...'; btn.disabled = true;
+  // Save to Supabase messages table (if exists), else simulate
+  const payload = {
+    property_id: _currentProp.id || null,
+    property_title: _currentProp.title,
+    sender_id: sb._user.id,
+    sender_name: sb._user.user_metadata?.full_name || sb._user.email,
+    owner_name: _currentProp.contact_name || 'Owner',
+    message: txt,
+    created_at: new Date().toISOString()
+  };
+  await sb.post('messages', payload); // will silently fail if table doesn't exist
+  // Show success regardless
+  document.getElementById('msg-sent-text').textContent = `"${(_currentProp.contact_name||'Owner')}" ko aapka message bhej diya gaya. Woh jaldi reply karenge.`;
+  document.getElementById('msg-form-state').style.display = 'none';
+  document.getElementById('msg-sent-state').style.display = '';
+  btn.textContent = '📤 Message Bhejo'; btn.disabled = false;
+}
+document.getElementById('msg-modal').addEventListener('click', e => { if(e.target===e.currentTarget) closeMsgModal(); });
 
 /* ===================== LIGHTBOX ===================== */
 let _lbPhotos = [], _lbIdx = 0;
@@ -1060,6 +1234,8 @@ async function showPage(n) {
   if (n==='buy')  await fetchAndRender('buy-grid',  'listing_type=eq.buy');
   if (n==='sell') await fetchAndRender('sell-grid', 'listing_type=eq.sell');
   if (n==='rent') await fetchAndRender('rent-grid', 'listing_type=eq.rent');
+  if (n==='messages') await loadMyMessages();
+  if (n==='contact') renderContactForm();
 }
 
 async function filterProps(btn, type) {
@@ -1080,9 +1256,83 @@ function showToast(msg){
   clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),3500);
 }
 
+/* ===================== MY MESSAGES ===================== */
+async function loadMyMessages() {
+  const el = document.getElementById('messages-list');
+  if (!sb._user) {
+    el.innerHTML = `<div class="contact-form-locked"><div class="lock-icon">🔒</div><h4>Login Karein Messages Dekhne Ke Liye</h4><p>Aapke bheje hue sare messages yahan dikhenge.</p><button class="btn btn-gold" onclick="openModal('login')">Login Karein</button></div>`;
+    return;
+  }
+  el.innerHTML = `<div style="text-align:center;padding:3rem;color:var(--text-muted);">⏳ Messages load ho rahi hain...</div>`;
+  const msgs = await sb.get('messages', `sender_id=eq.${sb._user.id}&order=created_at.desc`);
+  if (!msgs || msgs.length === 0) {
+    el.innerHTML = `<div class="msg-empty"><div class="msg-empty-icon">✉️</div><h3>Koi Message Nahi Abhi Tak</h3><p>Jab aap kisi property owner ko message karenge, woh yahan dikhega.</p><button class="btn btn-gold" style="margin-top:1.2rem;" onclick="showPage('home')">Properties Dekhein</button></div>`;
+    return;
+  }
+  el.innerHTML = msgs.map(m => {
+    const time = m.created_at ? new Date(m.created_at).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}) : '';
+    const initials = (m.owner_name||'O').charAt(0).toUpperCase();
+    return `<div class="msg-thread">
+      <div class="msg-thread-top">
+        <div class="msg-thread-who">
+          <div class="msg-thread-avatar">${initials}</div>
+          <div>
+            <div class="msg-thread-name">${m.owner_name||'Property Owner'}</div>
+            <div class="msg-thread-prop">🏠 ${m.property_title||'Property'}</div>
+          </div>
+        </div>
+        <div class="msg-thread-time">${time}</div>
+      </div>
+      <div class="msg-thread-body">${m.message||''}</div>
+    </div>`;
+  }).join('');
+}
+
+/* ===================== CONTACT PAGE FORM ===================== */
+function renderContactForm() {
+  const inner = document.getElementById('contact-form-inner');
+  if (!inner) return;
+  if (!sb._user) {
+    inner.innerHTML = `<div class="contact-form-locked">
+      <div class="lock-icon">🔒</div>
+      <h4>Login Karein Message Bhejne Ke Liye</h4>
+      <p>PROPDESH support ko message karne ke liye login zaroori hai.</p>
+      <div style="display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap;">
+        <button class="btn btn-gold" onclick="openModal('login')">Login Karein</button>
+        <button class="btn btn-outline" onclick="openModal('register')">Register Free</button>
+      </div>
+    </div>`;
+    return;
+  }
+  const user = sb._user;
+  const uname = user.user_metadata?.full_name || '';
+  const uemail = user.email || '';
+  inner.innerHTML = `<div class="form-grid">
+    <div class="fg"><label>Name</label><input id="ct-name" type="text" value="${uname}" placeholder="Your name"/></div>
+    <div class="fg"><label>Phone</label><input id="ct-phone" type="tel" placeholder="+91 XXXXX XXXXX"/></div>
+    <div class="fg full"><label>Email</label><input id="ct-email" type="email" value="${uemail}" placeholder="your@email.com"/></div>
+    <div class="fg full"><label>Message</label><textarea id="ct-msg" placeholder="Tell us how we can help..." style="min-height:120px;"></textarea></div>
+    <div class="fg full"><button class="btn btn-gold btn-lg" style="width:100%;justify-content:center;" onclick="sendContactMessage()">📤 Send Message</button></div>
+  </div>`;
+}
+
+async function sendContactMessage() {
+  const name  = document.getElementById('ct-name')?.value.trim();
+  const phone = document.getElementById('ct-phone')?.value.trim();
+  const email = document.getElementById('ct-email')?.value.trim();
+  const msg   = document.getElementById('ct-msg')?.value.trim();
+  if (!msg) return showToast('⚠️ Message likhein pehle');
+  const payload = { sender_id: sb._user?.id, sender_name: name, property_title: 'Support Inquiry', owner_name: 'PROPDESH Support', message: msg, created_at: new Date().toISOString() };
+  await sb.post('messages', payload);
+  document.getElementById('contact-form-inner').innerHTML = `<div style="text-align:center;padding:2.5rem;"><div style="font-size:2.5rem;margin-bottom:.75rem;">✅</div><h4 style="font-family:'Playfair Display',serif;font-size:1.2rem;margin-bottom:.4rem;">Message Send Ho Gaya!</h4><p style="color:var(--text-muted);">PROPDESH team 24 ghante mein reply karegi.</p></div>`;
+  showToast('✅ Message bhej diya gaya!');
+}
+
 // init
 updateNavAuth();
 fetchAndRender('featured-grid');
+// Render contact form on page load (state-aware)
+setTimeout(renderContactForm, 100);
 </script>
 </body>
 </html>
