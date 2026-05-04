@@ -1065,18 +1065,18 @@ async function sendMessage() {
   if (!txt) return showToast('⚠️ Message likhein pehle');
   const btn = document.querySelector('.msg-send-btn');
   btn.textContent = '🔄 Bhej raha hai...'; btn.disabled = true;
-  // Save to Supabase messages table (if exists), else simulate
   const payload = {
     property_id: _currentProp.id || null,
     property_title: _currentProp.title,
     sender_id: sb._user.id,
     sender_name: sb._user.user_metadata?.full_name || sb._user.email,
+    owner_id: _currentProp.user_id || null,   // ← owner ko dikhane ke liye
     owner_name: _currentProp.contact_name || 'Owner',
+    owner_phone: _currentProp.contact_phone || '',
     message: txt,
     created_at: new Date().toISOString()
   };
-  await sb.post('messages', payload); // will silently fail if table doesn't exist
-  // Show success regardless
+  const result = await sb.post('messages', payload);
   document.getElementById('msg-sent-text').textContent = `"${(_currentProp.contact_name||'Owner')}" ko aapka message bhej diya gaya. Woh jaldi reply karenge.`;
   document.getElementById('msg-form-state').style.display = 'none';
   document.getElementById('msg-sent-state').style.display = '';
@@ -1257,33 +1257,71 @@ function showToast(msg){
 }
 
 /* ===================== MY MESSAGES ===================== */
-async function loadMyMessages() {
+async function loadMyMessages(tab) {
   const el = document.getElementById('messages-list');
   if (!sb._user) {
-    el.innerHTML = `<div class="contact-form-locked"><div class="lock-icon">🔒</div><h4>Login Karein Messages Dekhne Ke Liye</h4><p>Aapke bheje hue sare messages yahan dikhenge.</p><button class="btn btn-gold" onclick="openModal('login')">Login Karein</button></div>`;
+    el.innerHTML = `<div class="contact-form-locked"><div class="lock-icon">🔒</div><h4>Login Karein Messages Dekhne Ke Liye</h4><p>Aapke bheje aur receive hue sare messages yahan dikhenge.</p><button class="btn btn-gold" onclick="openModal('login')">Login Karein</button></div>`;
     return;
   }
-  el.innerHTML = `<div style="text-align:center;padding:3rem;color:var(--text-muted);">⏳ Messages load ho rahi hain...</div>`;
-  const msgs = await sb.get('messages', `sender_id=eq.${sb._user.id}&order=created_at.desc`);
+
+  const uid = sb._user.id;
+  tab = tab || 'received';
+
+  // Tab UI
+  el.innerHTML = `
+    <div style="display:flex;gap:.5rem;margin-bottom:1.5rem;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:.38rem;width:fit-content;">
+      <button class="tab ${tab==='received'?'active':''}" onclick="loadMyMessages('received')">📥 Received</button>
+      <button class="tab ${tab==='sent'?'active':''}" onclick="loadMyMessages('sent')">📤 Sent</button>
+    </div>
+    <div id="msg-tab-content"><div style="text-align:center;padding:3rem;color:var(--text-muted);">⏳ Load ho raha hai...</div></div>`;
+
+  const content = document.getElementById('msg-tab-content');
+
+  let msgs;
+  if (tab === 'received') {
+    // Owner apne property ke messages dekhta hai
+    msgs = await sb.get('messages', `owner_id=eq.${uid}&order=created_at.desc`);
+  } else {
+    // Buyer/renter apne sent messages dekhta hai
+    msgs = await sb.get('messages', `sender_id=eq.${uid}&order=created_at.desc`);
+  }
+
   if (!msgs || msgs.length === 0) {
-    el.innerHTML = `<div class="msg-empty"><div class="msg-empty-icon">✉️</div><h3>Koi Message Nahi Abhi Tak</h3><p>Jab aap kisi property owner ko message karenge, woh yahan dikhega.</p><button class="btn btn-gold" style="margin-top:1.2rem;" onclick="showPage('home')">Properties Dekhein</button></div>`;
+    content.innerHTML = `<div class="msg-empty">
+      <div class="msg-empty-icon">${tab==='received'?'📭':'✉️'}</div>
+      <h3>${tab==='received'?'Koi Message Nahi Mila Abhi Tak':'Koi Message Nahi Bheja Abhi Tak'}</h3>
+      <p>${tab==='received'?'Jab koi aapki property pe message karega, yahan dikhega.':'Kisi property owner ko message karein.'}</p>
+      <button class="btn btn-gold" style="margin-top:1.2rem;" onclick="showPage('home')">Properties Dekhein</button>
+    </div>`;
     return;
   }
-  el.innerHTML = msgs.map(m => {
+
+  content.innerHTML = msgs.map(m => {
     const time = m.created_at ? new Date(m.created_at).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}) : '';
-    const initials = (m.owner_name||'O').charAt(0).toUpperCase();
+    const isReceived = tab === 'received';
+    const displayName = isReceived ? (m.sender_name || 'Buyer') : (m.owner_name || 'Owner');
+    const initials = displayName.charAt(0).toUpperCase();
+    const subLabel = isReceived
+      ? `📞 ${m.owner_phone || 'Phone not available'}`
+      : `🏠 ${m.property_title || 'Property'}`;
+    const replyBtn = isReceived && m.owner_phone
+      ? `<div style="margin-top:.75rem;display:flex;gap:.6rem;flex-wrap:wrap;">
+           <a href="tel:${m.owner_phone}" class="btn btn-outline" style="font-size:.8rem;padding:.4rem 1rem;">📞 Call Karein</a>
+           <a href="https://wa.me/${m.owner_phone.replace(/[^0-9]/g,'')}" target="_blank" class="btn" style="background:#25D366;color:#fff;font-size:.8rem;padding:.4rem 1rem;">💬 WhatsApp</a>
+         </div>` : '';
     return `<div class="msg-thread">
       <div class="msg-thread-top">
         <div class="msg-thread-who">
           <div class="msg-thread-avatar">${initials}</div>
           <div>
-            <div class="msg-thread-name">${m.owner_name||'Property Owner'}</div>
-            <div class="msg-thread-prop">🏠 ${m.property_title||'Property'}</div>
+            <div class="msg-thread-name">${displayName}</div>
+            <div class="msg-thread-prop">${subLabel}</div>
           </div>
         </div>
         <div class="msg-thread-time">${time}</div>
       </div>
-      <div class="msg-thread-body">${m.message||''}</div>
+      <div class="msg-thread-body">${m.message || ''}</div>
+      ${replyBtn}
     </div>`;
   }).join('');
 }
@@ -1322,7 +1360,7 @@ async function sendContactMessage() {
   const email = document.getElementById('ct-email')?.value.trim();
   const msg   = document.getElementById('ct-msg')?.value.trim();
   if (!msg) return showToast('⚠️ Message likhein pehle');
-  const payload = { sender_id: sb._user?.id, sender_name: name, property_title: 'Support Inquiry', owner_name: 'PROPDESH Support', message: msg, created_at: new Date().toISOString() };
+  const payload = { sender_id: sb._user?.id, sender_name: name, property_title: 'Support Inquiry', owner_id: null, owner_name: 'PROPDESH Support', message: msg, created_at: new Date().toISOString() };
   await sb.post('messages', payload);
   document.getElementById('contact-form-inner').innerHTML = `<div style="text-align:center;padding:2.5rem;"><div style="font-size:2.5rem;margin-bottom:.75rem;">✅</div><h4 style="font-family:'Playfair Display',serif;font-size:1.2rem;margin-bottom:.4rem;">Message Send Ho Gaya!</h4><p style="color:var(--text-muted);">PROPDESH team 24 ghante mein reply karegi.</p></div>`;
   showToast('✅ Message bhej diya gaya!');
