@@ -1173,6 +1173,7 @@ async function submitProperty() {
 
   let image_url = null, extra_images = null;
   if (selectedFiles.length > 0) {
+    showToast('📸 Photos upload ho rahi hain...');
     const urls = [];
     for (let i = 0; i < selectedFiles.length; i++) {
       const f = selectedFiles[i];
@@ -1188,13 +1189,28 @@ async function submitProperty() {
 
   const payload = { title, location:loc, price, area_sqft:area, property_type:ptype,
     listing_type:ltype, beds, baths, description:desc, contact_phone:phone,
-    contact_name:cname, image_url, extra_images, user_id:sb._user.id, status:'pending' };
-  const res = await sb.post('properties', payload);
-  if (res) {
-    showToast('✅ Property submit! 24 ghante mein review hogi.');
-    document.getElementById('post-form').querySelectorAll('input,select,textarea').forEach(el=>{ if(el.type!=='file') el.value=''; });
-    selectedFiles = []; renderPreviews();
-  } else { showToast('❌ Submit failed. Dobara try karein.'); }
+    contact_name:cname, image_url, extra_images, user_id:sb._user.id, status:'approved' };
+
+  try {
+    const r = await fetch(`${SB_URL}/rest/v1/properties`, {
+      method: 'POST',
+      headers: { ...sb.headers, 'Prefer': 'return=representation' },
+      body: JSON.stringify(payload)
+    });
+    const data = await r.json();
+    if (r.ok) {
+      showToast('✅ Property listed! Ab dikhegi.');
+      document.getElementById('post-form').querySelectorAll('input,select,textarea').forEach(el=>{ if(el.type!=='file') el.value=''; });
+      selectedFiles = []; renderPreviews();
+      setTimeout(() => showPage('home'), 1500);
+    } else {
+      console.error('Submit error:', data);
+      showToast('❌ Error: ' + (data?.message || data?.hint || JSON.stringify(data)));
+    }
+  } catch(e) {
+    console.error('Submit exception:', e);
+    showToast('❌ Network error: ' + e.message);
+  }
 }
 
 /* ===================== LOAD / FILTER ===================== */
