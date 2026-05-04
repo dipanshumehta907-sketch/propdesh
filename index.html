@@ -58,20 +58,14 @@
   .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 65% at 75% 50%,rgba(212,169,106,0.08) 0%,transparent 65%);pointer-events:none;}
   .hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:200px;background:linear-gradient(to top,rgba(24,24,27,0.6),transparent);pointer-events:none;}
 
-  /* ── DANCING FAMILY ── */
   .family-wrap{position:absolute;right:4%;top:50%;transform:translateY(-50%);width:min(520px,52vw);height:min(500px,55vw);z-index:1;pointer-events:none;}
   .family-scene{width:100%;height:100%;position:relative;}
-  /* Floor */
   .floor{position:absolute;bottom:0;left:0;right:0;height:4px;background:linear-gradient(90deg,transparent,rgba(212,169,106,0.4),transparent);border-radius:50%;}
   .city-bg{position:absolute;bottom:0;left:0;width:100%;height:85%;object-fit:fill;opacity:0.92;}
-
-  /* Hero tags */
   .hero-tags{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:1.6rem;animation:fadeUp .7s .25s both;}
   .htag{padding:.32rem .9rem;background:rgba(212,169,106,0.10);border:1px solid rgba(212,169,106,0.25);border-radius:100px;font-size:.78rem;color:#d4a96a;font-weight:600;}
   .hero-sub{font-size:1rem;color:var(--text-muted);max-width:480px;margin-bottom:1.4rem;line-height:1.75;animation:fadeUp .7s .2s both;}
-  /* Glow behind family */
   .family-glow{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:80%;height:60%;background:radial-gradient(ellipse,rgba(212,169,106,0.07) 0%,transparent 70%);border-radius:50%;}
-  /* Person base styles */
   .person{position:absolute;bottom:20px;display:flex;flex-direction:column;align-items:center;}
   .head{border-radius:50%;position:relative;}
   .body{position:relative;display:flex;flex-direction:column;align-items:center;}
@@ -79,8 +73,6 @@
   .arm{width:6px;border-radius:4px;transform-origin:top center;}
   .legs{display:flex;gap:6px;margin-top:2px;}
   .leg{width:7px;border-radius:4px;transform-origin:top center;}
-
-  /* DAD */
   .dad{left:12%;}
   .dad .head{width:38px;height:38px;background:#c4956a;margin-bottom:2px;}
   .dad .head::before{content:'';position:absolute;top:10px;left:7px;width:24px;height:3px;background:rgba(0,0,0,0.15);border-radius:2px;}
@@ -89,8 +81,6 @@
   .dad .leg{height:42px;background:#3d2e1e;}
   .dad .leg:last-child{background:#2d2018;}
   .dad{animation:dance-dad 1.2s ease-in-out infinite;}
-
-  /* MOM */
   .mom{left:36%;}
   .mom .head{width:34px;height:34px;background:#d4a574;margin-bottom:2px;}
   .mom .head::after{content:'';position:absolute;top:-8px;left:-4px;width:42px;height:16px;background:#8b5e3c;border-radius:50% 50% 0 0;}
@@ -98,38 +88,28 @@
   .mom .arm{height:30px;background:#7c5c8a;}
   .mom .leg{height:36px;background:#5c3d6a;}
   .mom{animation:dance-mom 1.2s ease-in-out infinite 0.2s;}
-
-  /* KID */
   .kid{left:58%;}
   .kid .head{width:28px;height:28px;background:#e8b886;margin-bottom:2px;}
   .kid .torso{width:26px;height:38px;background:#4a7a5c;border-radius:6px 6px 4px 4px;}
   .kid .arm{height:24px;background:#4a7a5c;}
   .kid .leg{height:28px;background:#2d5c3a;}
   .kid{animation:dance-kid 0.9s ease-in-out infinite 0.1s;}
-
-  /* BABY */
   .baby{left:75%;}
   .baby .head{width:22px;height:22px;background:#f0c090;margin-bottom:2px;}
   .baby .torso{width:20px;height:26px;background:#d4704a;border-radius:6px 6px 4px 4px;}
   .baby .arm{height:16px;background:#d4704a;}
   .baby .leg{height:18px;background:#a85030;}
   .baby{animation:dance-baby 0.8s ease-in-out infinite 0.3s;}
-
-  /* Music notes floating */
   .note{position:absolute;font-size:1.4rem;opacity:0;animation:float-note 3s ease-in-out infinite;}
   .note.n1{top:10%;left:5%;animation-delay:0s;}
   .note.n2{top:20%;left:85%;animation-delay:1s;}
   .note.n3{top:5%;left:50%;animation-delay:2s;}
   .note.n4{top:35%;left:92%;animation-delay:0.5s;}
-
-  /* Dance animations */
   @keyframes dance-dad{0%,100%{transform:rotate(-3deg) translateY(0);}25%{transform:rotate(3deg) translateY(-8px);}50%{transform:rotate(-2deg) translateY(-4px);}75%{transform:rotate(4deg) translateY(-10px);}}
   @keyframes dance-mom{0%,100%{transform:rotate(3deg) translateY(-2px);}25%{transform:rotate(-3deg) translateY(-10px);}50%{transform:rotate(2deg) translateY(-6px);}75%{transform:rotate(-4deg) translateY(-2px);}}
   @keyframes dance-kid{0%,100%{transform:rotate(-5deg) translateY(0);}25%{transform:rotate(5deg) translateY(-12px);}50%{transform:rotate(-3deg) translateY(-6px);}75%{transform:rotate(6deg) translateY(-14px);}}
   @keyframes dance-baby{0%,100%{transform:rotate(6deg) translateY(-4px);}25%{transform:rotate(-6deg) translateY(0);}50%{transform:rotate(4deg) translateY(-8px);}75%{transform:rotate(-5deg) translateY(-2px);}}
   @keyframes float-note{0%{opacity:0;transform:translateY(0) scale(0.8);}30%{opacity:0.7;}70%{opacity:0.4;}100%{opacity:0;transform:translateY(-60px) scale(1.2);}}
-
-  /* Arm animations */
   .dad .arm:first-child{animation:arm-wave 1.2s ease-in-out infinite;}
   .mom .arm:last-child{animation:arm-wave 1.2s ease-in-out infinite 0.3s;}
   .kid .arm:first-child{animation:arm-wave 0.9s ease-in-out infinite 0.1s;}
@@ -157,7 +137,7 @@
   /* ====== STATS ====== */
   .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);}
   .stat{background:var(--bg);padding:2.5rem 5%;text-align:center;}
-  .stat-num{font-family:'Playfair Display Display',serif;font-size:2.4rem;font-weight:900;color:#d4a96a;}
+  .stat-num{font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:900;color:#d4a96a;}
   .stat-label{color:var(--text-muted);font-size:.84rem;margin-top:.2rem;}
 
   section{padding:5rem 5%;}
@@ -261,19 +241,99 @@
 
   @keyframes fadeUp{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
   @keyframes fadeDown{from{opacity:0;transform:translateY(-12px);}to{opacity:1;transform:translateY(0);}}
-  @keyframes slideIn{from{opacity:0;transform:translateX(18px);}to{opacity:1;transform:translateX(0);}}
   @keyframes spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+  @keyframes slideIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
 
-  @media(max-width:900px){
-    .nav-links{display:none;}
-    .stats{grid-template-columns:1fr 1fr;}
-    .how-grid,.about-grid,.contact-grid{grid-template-columns:1fr;}
-    .footer-grid{grid-template-columns:1fr 1fr;}
-    .form-grid{grid-template-columns:1fr;}
-    .search-box{grid-template-columns:1fr;}
-    .family-wrap{opacity:.2;right:-5%;width:220px;height:220px;}
-    .hero-content{text-align:center;}
-  }
+  /* ====== MULTI-IMAGE UPLOAD ====== */
+  .img-upload-area{border:2px dashed var(--border);border-radius:12px;padding:1.5rem;text-align:center;cursor:pointer;transition:all .2s;background:var(--surface2);}
+  .img-upload-area:hover,.img-upload-area.drag-over{border-color:var(--gold);background:var(--gold-dim);}
+  .img-upload-area input{display:none;}
+  .img-upload-area .upload-icon{font-size:2rem;margin-bottom:.5rem;}
+  .img-upload-area p{color:var(--text-muted);font-size:.85rem;}
+  .img-upload-area strong{color:var(--gold);}
+  .img-previews{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:.75rem;margin-top:1rem;}
+  .img-preview-item{position:relative;border-radius:8px;overflow:hidden;aspect-ratio:1;background:var(--surface2);}
+  .img-preview-item img{width:100%;height:100%;object-fit:cover;}
+  .img-preview-item .remove-img{position:absolute;top:4px;right:4px;background:rgba(0,0,0,.7);border:none;color:#fff;border-radius:50%;width:22px;height:22px;cursor:pointer;font-size:.7rem;display:flex;align-items:center;justify-content:center;}
+  .img-preview-item .main-badge{position:absolute;bottom:4px;left:4px;background:var(--gold);color:#1c1917;font-size:.6rem;font-weight:700;padding:2px 6px;border-radius:4px;}
+
+  /* ====== PROPERTY DETAIL PAGE ====== */
+  #page-detail{background:var(--bg);}
+  .detail-back{display:inline-flex;align-items:center;gap:.5rem;color:var(--text-muted);cursor:pointer;font-size:.9rem;padding:1.5rem 5% .5rem;transition:color .2s;}
+  .detail-back:hover{color:var(--gold);}
+  .detail-back span{font-size:1.1rem;}
+
+  /* Photo Gallery */
+  .detail-gallery{padding:0 5% 2rem;display:grid;grid-template-columns:2fr 1fr;grid-template-rows:auto auto;gap:.75rem;max-height:520px;}
+  .gallery-main{grid-row:1/3;border-radius:14px;overflow:hidden;position:relative;background:var(--surface2);}
+  .gallery-main img{width:100%;height:100%;object-fit:cover;cursor:pointer;}
+  .gallery-main .gallery-placeholder{width:100%;height:400px;display:flex;align-items:center;justify-content:center;font-size:4rem;background:linear-gradient(135deg,#031420,#0a3d7a);}
+  .gallery-side{border-radius:10px;overflow:hidden;position:relative;background:var(--surface2);cursor:pointer;}
+  .gallery-side img{width:100%;height:100%;object-fit:cover;transition:transform .2s;}
+  .gallery-side:hover img{transform:scale(1.04);}
+  .gallery-side .side-placeholder{width:100%;height:100%;min-height:120px;display:flex;align-items:center;justify-content:center;font-size:2rem;background:var(--surface2);}
+  .gallery-more-btn{position:absolute;bottom:.75rem;right:.75rem;background:rgba(0,0,0,.75);color:#fff;border:none;border-radius:8px;padding:.4rem .9rem;font-size:.8rem;cursor:pointer;backdrop-filter:blur(4px);transition:background .2s;}
+  .gallery-more-btn:hover{background:var(--gold);color:#1c1917;}
+
+  /* Detail Content */
+  .detail-content{padding:0 5% 4rem;display:grid;grid-template-columns:1fr 380px;gap:3rem;align-items:start;}
+  .detail-left{}
+  .detail-title-row{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:1rem;}
+  .detail-price{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:var(--gold);}
+  .detail-price-sub{font-family:'DM Sans',sans-serif;font-size:.85rem;color:var(--text-muted);font-weight:400;}
+  .detail-title{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;margin-bottom:.4rem;}
+  .detail-loc{color:var(--text-muted);font-size:.93rem;margin-bottom:1.5rem;}
+  .detail-loc::before{content:"📍 ";}
+  .detail-badges{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:2rem;}
+  .dbadge{padding:.3rem .85rem;border-radius:6px;font-size:.78rem;font-weight:600;border:1px solid var(--border);}
+  .dbadge-type{background:rgba(212,169,106,.1);color:var(--gold);border-color:rgba(212,169,106,.3);}
+  .dbadge-sell{background:rgba(248,113,113,.1);color:var(--red);border-color:rgba(248,113,113,.3);}
+  .dbadge-rent{background:rgba(168,149,106,.1);color:#a8956a;border-color:rgba(168,149,106,.3);}
+  .dbadge-buy{background:rgba(74,222,128,.1);color:var(--green);border-color:rgba(74,222,128,.3);}
+
+  .detail-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.25rem;margin-bottom:2rem;}
+  .dstat{text-align:center;}
+  .dstat-val{font-size:1.2rem;font-weight:700;color:var(--text);}
+  .dstat-key{font-size:.73rem;color:var(--text-muted);margin-top:.15rem;}
+
+  .detail-desc-title{font-weight:700;font-size:1rem;margin-bottom:.75rem;color:var(--text);}
+  .detail-desc{color:var(--text-muted);line-height:1.8;font-size:.93rem;white-space:pre-line;}
+
+  .detail-features{margin-top:2rem;}
+  .detail-features h3{font-weight:700;margin-bottom:1rem;}
+  .features-grid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;}
+  .feat{display:flex;align-items:center;gap:.6rem;font-size:.87rem;color:var(--text-muted);padding:.4rem 0;}
+  .feat::before{content:"✓";color:var(--gold);font-size:.75rem;font-weight:700;}
+
+  /* Contact Card */
+  .contact-card{background:var(--surface);border:1px solid rgba(212,169,106,.2);border-radius:16px;padding:1.75rem;position:sticky;top:88px;}
+  .contact-card h3{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;margin-bottom:1.25rem;}
+  .owner-row{display:flex;align-items:center;gap:.85rem;padding:1rem;background:var(--surface2);border-radius:10px;margin-bottom:1.25rem;}
+  .owner-avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--accent));display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:700;color:#1c1917;flex-shrink:0;}
+  .owner-name{font-weight:600;font-size:.92rem;}
+  .owner-tag{font-size:.75rem;color:var(--text-muted);}
+  .contact-btns{display:flex;flex-direction:column;gap:.7rem;}
+  .cbtn{width:100%;padding:.8rem;border-radius:10px;font-family:'DM Sans',sans-serif;font-size:.9rem;font-weight:600;cursor:pointer;transition:all .2s;border:none;display:flex;align-items:center;justify-content:center;gap:.5rem;}
+  .cbtn-call{background:var(--gold);color:#fff;}
+  .cbtn-call:hover{background:var(--gold-light);transform:translateY(-1px);box-shadow:0 6px 20px rgba(212,169,106,.3);}
+  .cbtn-whatsapp{background:#25D366;color:#fff;}
+  .cbtn-whatsapp:hover{background:#20ba58;transform:translateY(-1px);}
+  .cbtn-msg{background:var(--surface2);color:var(--text);border:1px solid var(--border);}
+  .cbtn-msg:hover{border-color:var(--gold);color:var(--gold);}
+  .safety-note{margin-top:1.25rem;padding:.85rem;background:rgba(212,169,106,.05);border:1px solid rgba(212,169,106,.15);border-radius:8px;font-size:.76rem;color:var(--text-muted);line-height:1.5;}
+  .safety-note strong{color:var(--gold);}
+
+  /* Lightbox */
+  .lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:500;align-items:center;justify-content:center;backdrop-filter:blur(8px);}
+  .lightbox.open{display:flex;}
+  .lightbox img{max-width:90vw;max-height:85vh;border-radius:12px;object-fit:contain;}
+  .lightbox-close{position:absolute;top:1.5rem;right:1.5rem;background:rgba(255,255,255,.1);border:none;color:#fff;width:40px;height:40px;border-radius:50%;cursor:pointer;font-size:1.2rem;display:flex;align-items:center;justify-content:center;transition:background .2s;}
+  .lightbox-close:hover{background:var(--gold);color:#1c1917;}
+  .lightbox-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.1);border:none;color:#fff;width:44px;height:44px;border-radius:50%;cursor:pointer;font-size:1.2rem;display:flex;align-items:center;justify-content:center;transition:background .2s;}
+  .lightbox-nav:hover{background:var(--gold);color:#1c1917;}
+  .lightbox-prev{left:1.5rem;}
+  .lightbox-next{right:1.5rem;}
+  .lightbox-counter{position:absolute;bottom:1.5rem;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.6);font-size:.85rem;}
 </style>
 </head>
 <body>
@@ -289,7 +349,7 @@
       <li><a href="#" onclick="showPage('about')">About</a></li>
       <li><a href="#" onclick="showPage('contact')">Contact</a></li>
     </ul>
-    <div class="nav-actions">
+    <div class="nav-actions" id="nav-actions">
       <button class="btn btn-outline" onclick="openModal('login')">Login</button>
       <button class="btn btn-gold" onclick="openModal('register')">Register Free</button>
     </div>
@@ -299,192 +359,88 @@
 <!-- HOME -->
 <div id="page-home" class="page active">
   <div class="hero">
-    <!-- Dancing Family + City Scene -->
     <div class="family-wrap">
       <div class="family-scene">
         <div class="family-glow"></div>
-
-        <!-- CITY SVG BACKGROUND -->
         <svg class="city-bg" viewBox="0 0 520 320" xmlns="http://www.w3.org/2000/svg">
-          <!-- Sky gradient -->
           <defs>
-            <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#1c1917"/>
-              <stop offset="100%" stop-color="#2d2520"/>
-            </linearGradient>
-            <linearGradient id="glowG" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#d4a96a" stop-opacity="0.18"/>
-              <stop offset="100%" stop-color="#d4a96a" stop-opacity="0"/>
-            </linearGradient>
+            <radialGradient id="glowG" cx="50%" cy="100%" r="50%"><stop offset="0%" stop-color="#d4a96a" stop-opacity="0.15"/><stop offset="100%" stop-color="#d4a96a" stop-opacity="0"/></radialGradient>
           </defs>
-
-          <!-- Ground -->
-          <rect x="0" y="280" width="520" height="40" fill="#2a2420" rx="0"/>
-          <rect x="0" y="276" width="520" height="6" fill="#d4a96a" opacity="0.18" rx="2"/>
-
-          <!-- Far buildings (dark) -->
-          <rect x="10" y="160" width="45" height="120" fill="#1e1a16" rx="3"/>
-          <rect x="60" y="130" width="35" height="150" fill="#221d19" rx="3"/>
-          <rect x="100" y="150" width="50" height="130" fill="#1e1a16" rx="3"/>
-          <rect x="400" y="140" width="40" height="140" fill="#221d19" rx="3"/>
-          <rect x="445" y="160" width="35" height="120" fill="#1e1a16" rx="3"/>
-          <rect x="480" y="145" width="35" height="135" fill="#221d19" rx="3"/>
-
-          <!-- Building windows (far) -->
-          <rect x="18" y="170" width="8" height="6" fill="#d4a96a" opacity="0.5" rx="1"/>
-          <rect x="30" y="170" width="8" height="6" fill="#d4a96a" opacity="0.3" rx="1"/>
-          <rect x="18" y="185" width="8" height="6" fill="#d4a96a" opacity="0.4" rx="1"/>
-          <rect x="30" y="185" width="8" height="6" fill="#fbbf24" opacity="0.6" rx="1"/>
-          <rect x="18" y="200" width="8" height="6" fill="#d4a96a" opacity="0.3" rx="1"/>
-          <rect x="68" y="140" width="7" height="5" fill="#fbbf24" opacity="0.5" rx="1"/>
-          <rect x="80" y="140" width="7" height="5" fill="#d4a96a" opacity="0.4" rx="1"/>
-          <rect x="68" y="153" width="7" height="5" fill="#d4a96a" opacity="0.6" rx="1"/>
-          <rect x="80" y="153" width="7" height="5" fill="#fbbf24" opacity="0.3" rx="1"/>
-          <rect x="68" y="166" width="7" height="5" fill="#d4a96a" opacity="0.4" rx="1"/>
-          <rect x="408" y="150" width="7" height="5" fill="#fbbf24" opacity="0.5" rx="1"/>
-          <rect x="420" y="150" width="7" height="5" fill="#d4a96a" opacity="0.4" rx="1"/>
-          <rect x="408" y="163" width="7" height="5" fill="#d4a96a" opacity="0.6" rx="1"/>
-          <rect x="453" y="168" width="7" height="5" fill="#fbbf24" opacity="0.5" rx="1"/>
-          <rect x="465" y="168" width="7" height="5" fill="#d4a96a" opacity="0.4" rx="1"/>
-          <rect x="488" y="155" width="7" height="5" fill="#d4a96a" opacity="0.5" rx="1"/>
-
-          <!-- Main house LEFT (warm brown) -->
-          <rect x="130" y="200" width="80" height="80" fill="#3d3028" rx="4"/>
-          <!-- Roof -->
-          <polygon points="120,202 210,202 170,162" fill="#5c4535"/>
-          <!-- Door -->
-          <rect x="158" y="248" width="22" height="32" fill="#2a1f15" rx="3"/>
-          <circle cx="177" cy="264" r="2" fill="#d4a96a"/>
-          <!-- Windows with happy face glow -->
-          <rect x="138" y="212" width="22" height="20" fill="#fbbf24" opacity="0.8" rx="3"/>
-          <rect x="197" y="212" width="22" height="20" fill="#fbbf24" opacity="0.6" rx="3"/>
-          <!-- Happy face in left window -->
-          <circle cx="149" cy="222" r="7" fill="#fbbf24" opacity="0.9"/>
-          <circle cx="147" cy="220" r="1" fill="#3d3028"/>
-          <circle cx="151" cy="220" r="1" fill="#3d3028"/>
-          <path d="M146,223 Q149,226 152,223" stroke="#3d3028" stroke-width="1.2" fill="none"/>
-          <!-- Happy face in right window -->
-          <circle cx="208" cy="222" r="7" fill="#fbbf24" opacity="0.7"/>
-          <circle cx="206" cy="220" r="1" fill="#3d3028"/>
-          <circle cx="210" cy="220" r="1" fill="#3d3028"/>
-          <path d="M205,223 Q208,226 211,223" stroke="#3d3028" stroke-width="1.2" fill="none"/>
-          <!-- Chimney -->
-          <rect x="185" y="155" width="10" height="22" fill="#4a3828"/>
-          <!-- Smoke puffs -->
-          <circle cx="190" cy="150" r="5" fill="#3a3530" opacity="0.6"/>
-          <circle cx="193" cy="142" r="4" fill="#3a3530" opacity="0.4"/>
-          <circle cx="188" cy="135" r="3" fill="#3a3530" opacity="0.2"/>
-
-          <!-- Main building CENTER (tall apartment) -->
-          <rect x="230" y="150" width="60" height="130" fill="#2d2520" rx="4"/>
-          <!-- Roof edge -->
-          <rect x="225" y="148" width="70" height="6" fill="#3d3028" rx="2"/>
-          <!-- Many windows -->
-          <rect x="238" y="160" width="14" height="10" fill="#fbbf24" opacity="0.7" rx="2"/>
-          <rect x="258" y="160" width="14" height="10" fill="#fbbf24" opacity="0.5" rx="2"/>
-          <rect x="272" y="160" width="14" height="10" fill="#d4a96a" opacity="0.4" rx="2"/>
+          <rect x="0" y="0" width="520" height="320" fill="#0a0a0e" opacity="0.4"/>
+          <rect x="30" y="80" width="55" height="200" fill="#1a1510" rx="3"/>
+          <rect x="35" y="60" width="45" height="30" fill="#221a0e" rx="2"/>
+          <rect x="38" y="90" width="10" height="8" fill="#fbbf24" opacity="0.8" rx="1"/>
+          <rect x="52" y="90" width="10" height="8" fill="#d4a96a" opacity="0.5" rx="1"/>
+          <rect x="66" y="90" width="10" height="8" fill="#fbbf24" opacity="0.6" rx="1"/>
+          <rect x="38" y="106" width="10" height="8" fill="#d4a96a" opacity="0.4" rx="1"/>
+          <rect x="52" y="106" width="10" height="8" fill="#fbbf24" opacity="0.7" rx="1"/>
+          <rect x="66" y="106" width="10" height="8" fill="#d4a96a" opacity="0.9" rx="1"/>
+          <rect x="38" y="122" width="10" height="8" fill="#fbbf24" opacity="0.5" rx="1"/>
+          <rect x="52" y="122" width="10" height="8" fill="#d4a96a" opacity="0.3" rx="1"/>
+          <rect x="66" y="122" width="10" height="8" fill="#fbbf24" opacity="0.8" rx="1"/>
+          <rect x="47" y="240" width="20" height="40" fill="#110c08" rx="2"/>
+          <rect x="95" y="100" width="70" height="180" fill="#1c1410" rx="3"/>
+          <rect x="100" y="115" width="14" height="10" fill="#d4a96a" opacity="0.7" rx="2"/>
+          <rect x="118" y="115" width="14" height="10" fill="#fbbf24" opacity="0.9" rx="2"/>
+          <rect x="136" y="115" width="14" height="10" fill="#d4a96a" opacity="0.5" rx="2"/>
+          <rect x="100" y="133" width="14" height="10" fill="#fbbf24" opacity="0.4" rx="2"/>
+          <rect x="118" y="133" width="14" height="10" fill="#d4a96a" opacity="0.8" rx="2"/>
+          <rect x="136" y="133" width="14" height="10" fill="#fbbf24" opacity="0.6" rx="2"/>
+          <rect x="100" y="151" width="14" height="10" fill="#d4a96a" opacity="0.6" rx="2"/>
+          <rect x="118" y="151" width="14" height="10" fill="#fbbf24" opacity="0.4" rx="2"/>
+          <rect x="136" y="151" width="14" height="10" fill="#d4a96a" opacity="0.7" rx="2"/>
+          <rect x="114" y="240" width="22" height="40" fill="#0e0a06" rx="2"/>
+          <rect x="175" y="130" width="55" height="150" fill="#161008" rx="3"/>
+          <rect x="180" y="145" width="12" height="9" fill="#fbbf24" opacity="0.6" rx="2"/>
+          <rect x="196" y="145" width="12" height="9" fill="#d4a96a" opacity="0.8" rx="2"/>
+          <rect x="212" y="145" width="12" height="9" fill="#fbbf24" opacity="0.5" rx="2"/>
+          <rect x="180" y="162" width="12" height="9" fill="#d4a96a" opacity="0.4" rx="2"/>
+          <rect x="196" y="162" width="12" height="9" fill="#fbbf24" opacity="0.9" rx="2"/>
+          <rect x="212" y="162" width="12" height="9" fill="#d4a96a" opacity="0.6" rx="2"/>
+          <rect x="192" y="240" width="18" height="40" fill="#100c08" rx="2"/>
+          <rect x="235" y="140" width="60" height="140" fill="#1a1208" rx="3"/>
+          <rect x="240" y="155" width="14" height="10" fill="#d4a96a" opacity="0.9" rx="2"/>
+          <rect x="258" y="155" width="14" height="10" fill="#fbbf24" opacity="0.5" rx="2"/>
+          <rect x="272" y="155" width="14" height="10" fill="#d4a96a" opacity="0.7" rx="2"/>
           <rect x="238" y="178" width="14" height="10" fill="#d4a96a" opacity="0.6" rx="2"/>
           <rect x="258" y="178" width="14" height="10" fill="#fbbf24" opacity="0.8" rx="2"/>
           <rect x="272" y="178" width="14" height="10" fill="#d4a96a" opacity="0.3" rx="2"/>
           <rect x="238" y="196" width="14" height="10" fill="#fbbf24" opacity="0.5" rx="2"/>
           <rect x="258" y="196" width="14" height="10" fill="#d4a96a" opacity="0.7" rx="2"/>
           <rect x="272" y="196" width="14" height="10" fill="#fbbf24" opacity="0.4" rx="2"/>
-          <rect x="238" y="214" width="14" height="10" fill="#d4a96a" opacity="0.6" rx="2"/>
-          <rect x="258" y="214" width="14" height="10" fill="#fbbf24" opacity="0.5" rx="2"/>
-          <!-- Happy face on top floor window -->
-          <circle cx="265" cy="165" r="5" fill="#fbbf24" opacity="0.95"/>
-          <circle cx="263" cy="164" r="0.8" fill="#2d2520"/>
-          <circle cx="267" cy="164" r="0.8" fill="#2d2520"/>
-          <path d="M262,166 Q265,168.5 268,166" stroke="#2d2520" stroke-width="1" fill="none"/>
-          <!-- Door -->
           <rect x="247" y="248" width="16" height="32" fill="#1c1710" rx="2"/>
           <circle cx="260" cy="264" r="1.5" fill="#d4a96a"/>
-
-          <!-- House RIGHT (cozy home) -->
           <rect x="315" y="210" width="75" height="70" fill="#352a20" rx="4"/>
-          <!-- Roof -->
           <polygon points="305,212 400,212 352,170" fill="#4a3525"/>
-          <!-- Door -->
           <rect x="343" y="248" width="20" height="32" fill="#241810" rx="3"/>
           <circle cx="360" cy="264" r="1.8" fill="#d4a96a"/>
-          <!-- Windows -->
           <rect x="320" y="220" width="20" height="16" fill="#fbbf24" opacity="0.75" rx="3"/>
           <rect x="370" y="220" width="20" height="16" fill="#fbbf24" opacity="0.55" rx="3"/>
-          <!-- Happy face left window -->
           <circle cx="330" cy="228" r="6" fill="#fbbf24" opacity="0.9"/>
           <circle cx="328" cy="226" r="1" fill="#352a20"/>
           <circle cx="332" cy="226" r="1" fill="#352a20"/>
           <path d="M327,229 Q330,231.5 333,229" stroke="#352a20" stroke-width="1.2" fill="none"/>
-          <!-- Happy face right window -->
           <circle cx="380" cy="228" r="6" fill="#fbbf24" opacity="0.7"/>
           <circle cx="378" cy="226" r="1" fill="#352a20"/>
           <circle cx="382" cy="226" r="1" fill="#352a20"/>
           <path d="M377,229 Q380,231.5 383,229" stroke="#352a20" stroke-width="1.2" fill="none"/>
-          <!-- Chimney -->
           <rect x="370" y="162" width="10" height="20" fill="#3d2e1e"/>
-
-          <!-- Stars -->
           <circle cx="55" cy="50" r="1.5" fill="#d4a96a" opacity="0.6"/>
           <circle cx="180" cy="30" r="1" fill="#fbbf24" opacity="0.7"/>
           <circle cx="340" cy="60" r="1.5" fill="#d4a96a" opacity="0.5"/>
           <circle cx="460" cy="40" r="1" fill="#fbbf24" opacity="0.8"/>
-          <circle cx="90" cy="80" r="1" fill="#d4a96a" opacity="0.4"/>
-          <circle cx="420" cy="90" r="1.5" fill="#fbbf24" opacity="0.5"/>
-
-          <!-- Moon -->
           <circle cx="470" cy="55" r="18" fill="#2a2520"/>
           <circle cx="477" cy="50" r="15" fill="#1c1917"/>
-
-          <!-- Ground glow -->
           <rect x="0" y="275" width="520" height="45" fill="url(#glowG)" opacity="0.5"/>
         </svg>
-
-        <!-- Music notes -->
         <span class="note n1">♪</span>
         <span class="note n2">♫</span>
         <span class="note n3">♩</span>
         <span class="note n4">♬</span>
-
-        <!-- Dad -->
-        <div class="person dad">
-          <div class="head"></div>
-          <div class="body">
-            <div class="torso">
-              <div class="arms"><div class="arm"></div><div class="arm"></div></div>
-            </div>
-            <div class="legs"><div class="leg"></div><div class="leg"></div></div>
-          </div>
-        </div>
-        <!-- Mom -->
-        <div class="person mom">
-          <div class="head"></div>
-          <div class="body">
-            <div class="torso">
-              <div class="arms"><div class="arm"></div><div class="arm"></div></div>
-            </div>
-            <div class="legs"><div class="leg"></div><div class="leg"></div></div>
-          </div>
-        </div>
-        <!-- Kid -->
-        <div class="person kid">
-          <div class="head"></div>
-          <div class="body">
-            <div class="torso">
-              <div class="arms"><div class="arm"></div><div class="arm"></div></div>
-            </div>
-            <div class="legs"><div class="leg"></div><div class="leg"></div></div>
-          </div>
-        </div>
-        <!-- Baby -->
-        <div class="person baby">
-          <div class="head"></div>
-          <div class="body">
-            <div class="torso">
-              <div class="arms"><div class="arm"></div><div class="arm"></div></div>
-            </div>
-            <div class="legs"><div class="leg"></div><div class="leg"></div></div>
-          </div>
-        </div>
+        <div class="person dad"><div class="head"></div><div class="body"><div class="torso"><div class="arms"><div class="arm"></div><div class="arm"></div></div></div><div class="legs"><div class="leg"></div><div class="leg"></div></div></div></div>
+        <div class="person mom"><div class="head"></div><div class="body"><div class="torso"><div class="arms"><div class="arm"></div><div class="arm"></div></div></div><div class="legs"><div class="leg"></div><div class="leg"></div></div></div></div>
+        <div class="person kid"><div class="head"></div><div class="body"><div class="torso"><div class="arms"><div class="arm"></div><div class="arm"></div></div></div><div class="legs"><div class="leg"></div><div class="leg"></div></div></div></div>
+        <div class="person baby"><div class="head"></div><div class="body"><div class="torso"><div class="arms"><div class="arm"></div><div class="arm"></div></div></div><div class="legs"><div class="leg"></div><div class="leg"></div></div></div></div>
         <div class="floor"></div>
       </div>
     </div>
@@ -565,6 +521,13 @@
 <!-- RENT -->
 <div id="page-rent" class="page"><section><div class="section-header"><span class="stag">Rent Property</span><h2>Properties for Rent</h2><p>Deal directly with landlords — no broker cuts</p></div><div class="prop-grid" id="rent-grid"></div></section></div>
 
+<!-- ===== PROPERTY DETAIL PAGE ===== -->
+<div id="page-detail" class="page">
+  <div class="detail-back" onclick="goBack()"><span>←</span> Wapas Jaao</div>
+  <div id="detail-gallery" class="detail-gallery"></div>
+  <div id="detail-content" class="detail-content"></div>
+</div>
+
 <!-- POST PROPERTY -->
 <div id="page-post" class="page">
   <section>
@@ -580,12 +543,21 @@
         <div class="fg"><label>Area (sq ft)</label><input id="p-area" type="number" placeholder="e.g. 1200"/></div>
         <div class="fg"><label>Bedrooms</label><select id="p-beds"><option value="0">Studio/0</option><option value="1">1 BHK</option><option value="2">2 BHK</option><option value="3">3 BHK</option><option value="4">4 BHK</option><option value="5">5+ BHK</option></select></div>
         <div class="fg"><label>Bathrooms</label><select id="p-baths"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4+</option></select></div>
-        <div class="fg"><label>Contact Name</label><input type="text" placeholder="Your full name"/></div>
+        <div class="fg"><label>Contact Name</label><input id="p-cname" type="text" placeholder="Your full name"/></div>
         <div class="fg"><label>Phone Number</label><input id="p-phone" type="tel" placeholder="+91 XXXXX XXXXX"/></div>
-        <div class="fg full"><label>Property Image</label>
-          <input id="p-img" type="file" accept="image/*" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.72rem 1rem;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.93rem;width:100%;cursor:pointer;"/>
-          <div style="font-size:.75rem;color:var(--text-dim);margin-top:.3rem;">JPG, PNG, WebP — max 5MB. Supabase storage mein save hogi.</div>
+
+        <!-- MULTI-PHOTO UPLOAD -->
+        <div class="fg full">
+          <label>Property Photos (Optional — Max 5)</label>
+          <div class="img-upload-area" id="upload-area" onclick="document.getElementById('p-imgs').click()" ondragover="handleDragOver(event)" ondrop="handleDrop(event)" ondragleave="this.classList.remove('drag-over')">
+            <input id="p-imgs" type="file" accept="image/*" multiple onchange="handleImgSelect(event)"/>
+            <div class="upload-icon">📸</div>
+            <p><strong>Click karke photos select karein</strong><br/>ya yahan drag & drop karein</p>
+            <p style="font-size:.73rem;margin-top:.3rem;color:var(--text-dim)">JPG, PNG, WebP — max 5MB each • Up to 5 photos</p>
+          </div>
+          <div class="img-previews" id="img-previews"></div>
         </div>
+
         <div class="fg full"><label>Description</label><textarea id="p-desc" placeholder="Describe your property — location advantages, nearby amenities, special features..."></textarea></div>
         <div class="fg full"><button class="btn btn-gold btn-lg" style="width:100%;justify-content:center;" onclick="submitProperty()">Submit Listing — FREE</button></div>
       </div>
@@ -704,6 +676,15 @@
   </div>
 </div>
 
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <button class="lightbox-nav lightbox-prev" onclick="lightboxNav(-1)">‹</button>
+  <img id="lightbox-img" src="" alt="Property Photo"/>
+  <button class="lightbox-nav lightbox-next" onclick="lightboxNav(1)">›</button>
+  <div class="lightbox-counter" id="lightbox-counter"></div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
@@ -714,31 +695,30 @@ const SB_KEY = 'sb_publishable_XgZuWlFqYRAGuGSwYH-SWg__h0Aqiim';
 const sb = {
   headers: { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY, 'Content-Type': 'application/json', 'Prefer': 'return=representation' },
   async get(table, params='') {
-    const r = await fetch(`${SB_URL}/rest/v1/${table}?${params}`, { headers: this.headers });
-    return r.ok ? r.json() : [];
+    try { const r = await fetch(`${SB_URL}/rest/v1/${table}?${params}`, { headers: this.headers }); return r.ok ? r.json() : []; } catch(e){ return []; }
   },
   async post(table, body) {
-    const r = await fetch(`${SB_URL}/rest/v1/${table}`, { method:'POST', headers: this.headers, body: JSON.stringify(body) });
-    return r.ok ? r.json() : null;
+    try { const r = await fetch(`${SB_URL}/rest/v1/${table}`, { method:'POST', headers: this.headers, body: JSON.stringify(body) }); return r.ok ? r.json() : null; } catch(e){ return null; }
   },
   async auth(endpoint, body) {
-    const r = await fetch(`${SB_URL}/auth/v1/${endpoint}`, { method:'POST', headers:{ 'apikey':SB_KEY,'Content-Type':'application/json' }, body: JSON.stringify(body) });
-    return r.json();
+    try { const r = await fetch(`${SB_URL}/auth/v1/${endpoint}`, { method:'POST', headers:{ 'apikey':SB_KEY,'Content-Type':'application/json' }, body: JSON.stringify(body) }); return r.json(); } catch(e){ return {}; }
   },
   async upload(bucket, path, file) {
-    const r = await fetch(`${SB_URL}/storage/v1/object/${bucket}/${path}`, {
-      method:'POST',
-      headers:{ 'apikey':SB_KEY, 'Authorization':'Bearer '+(this._token||SB_KEY) },
-      body: file
-    });
-    return r.ok ? `${SB_URL}/storage/v1/object/public/${bucket}/${path}` : null;
+    try {
+      const r = await fetch(`${SB_URL}/storage/v1/object/${bucket}/${path}`, {
+        method:'POST',
+        headers:{ 'apikey':SB_KEY, 'Authorization':'Bearer '+(this._token||SB_KEY) },
+        body: file
+      });
+      return r.ok ? `${SB_URL}/storage/v1/object/public/${bucket}/${path}` : null;
+    } catch(e){ return null; }
   },
   _token: null, _user: null
 };
 
 /* ===================== AUTH STATE ===================== */
 function updateNavAuth() {
-  const actions = document.querySelector('.nav-actions');
+  const actions = document.getElementById('nav-actions');
   if (sb._user) {
     const name = sb._user.user_metadata?.full_name || sb._user.email?.split('@')[0] || 'User';
     actions.innerHTML = `
@@ -759,15 +739,11 @@ async function sbLogin() {
   showToast('🔄 Login ho raha hai...');
   const res = await sb.auth('token?grant_type=password', { email, password: pass });
   if (res.access_token) {
-    sb._token = res.access_token;
-    sb._user  = res.user;
+    sb._token = res.access_token; sb._user = res.user;
     sb.headers['Authorization'] = 'Bearer ' + res.access_token;
-    closeModal('login');
-    updateNavAuth();
+    closeModal('login'); updateNavAuth();
     showToast('✅ Welcome back, ' + (res.user.user_metadata?.full_name || email) + '!');
-  } else {
-    showToast('❌ ' + (res.error_description || res.msg || 'Login failed'));
-  }
+  } else { showToast('❌ ' + (res.error_description || res.msg || 'Login failed')); }
 }
 
 async function sbRegister() {
@@ -778,25 +754,27 @@ async function sbRegister() {
   if (!name||!email||!pass) return showToast('⚠️ Sabhi fields bharein');
   showToast('🔄 Account ban raha hai...');
   const res = await sb.auth('signup', { email, password: pass, data:{ full_name:name, phone } });
-  if (res.user || res.id) {
-    closeModal('register');
-    showToast('🎉 Welcome PROPDESH par, ' + name + '! Email verify karein.');
-  } else {
-    showToast('❌ ' + (res.error_description || res.msg || 'Registration failed'));
-  }
+  if (res.user || res.id) { closeModal('register'); showToast('🎉 Welcome PROPDESH par, ' + name + '! Email verify karein.'); }
+  else { showToast('❌ ' + (res.error_description || res.msg || 'Registration failed')); }
 }
 
 async function sbLogout() {
   sb._token = null; sb._user = null;
   sb.headers['Authorization'] = 'Bearer ' + SB_KEY;
-  updateNavAuth();
-  showToast('👋 Logged out successfully');
-  showPage('home');
+  updateNavAuth(); showToast('👋 Logged out successfully'); showPage('home');
 }
 
-/* ===================== PROPERTIES FROM SUPABASE ===================== */
-const fallbackProps = [];
+/* ===================== FALLBACK PROPERTIES ===================== */
+const fallbackProps = [
+  { id:'f1', title:'3BHK Luxury Apartment', location:'Bandra West, Mumbai', price:15000000, area_sqft:1450, beds:3, baths:2, listing_type:'buy', property_type:'Apartment', description:'Spacious 3BHK in prime Bandra West location.\n\n✅ Newly renovated with modular kitchen\n✅ Sea view from master bedroom\n✅ 2 covered parking spots\n✅ 24/7 security & power backup\n✅ Swimming pool & gym in society\n\nNear Bandra station, schools, malls & hospitals. Excellent connectivity.', contact_phone:'+91 98765 43210', contact_name:'Rahul Sharma', image_url:null, icon:'🏢', amenities:['Swimming Pool','Gymnasium','24x7 Security','Power Backup','Covered Parking','Lift','Club House'] },
+  { id:'f2', title:'2BHK Builder Floor', location:'Lajpat Nagar, Delhi', price:7500000, area_sqft:950, beds:2, baths:2, listing_type:'sell', property_type:'Apartment', description:'Well-maintained 2BHK builder floor in South Delhi.\n\n✅ Ground + First floor option\n✅ Modular kitchen with chimney\n✅ Marble flooring throughout\n✅ Dedicated parking space\n\nClose to Metro station & market. Peaceful residential colony.', contact_phone:'+91 91234 56789', contact_name:'Priya Kapoor', image_url:null, icon:'🏡', amenities:['Dedicated Parking','Modular Kitchen','Marble Flooring','Near Metro'] },
+  { id:'f3', title:'1BHK Furnished Flat for Rent', location:'Koramangala, Bengaluru', price:22000, area_sqft:620, beds:1, baths:1, listing_type:'rent', property_type:'Apartment', description:'Fully furnished 1BHK in the heart of Koramangala.\n\n✅ Fully furnished (sofa, bed, wardrobe, fridge, washing machine)\n✅ High-speed wifi ready\n✅ 5 min walk from tech parks\n✅ Available from next month\n\nIdeal for working professionals. No brokerage — talk directly to owner.', contact_phone:'+91 87654 32109', contact_name:'Anil Kumar', image_url:null, icon:'🏠', amenities:['Fully Furnished','WiFi Ready','Near IT Park','Security','Maintenance Staff'] },
+  { id:'f4', title:'4BHK Independent Villa', location:'Jubilee Hills, Hyderabad', price:45000000, area_sqft:3200, beds:4, baths:4, listing_type:'buy', property_type:'Villa', description:'Stunning independent villa in Jubilee Hills.\n\n✅ G+2 structure with rooftop terrace\n✅ Private garden & car porch (3 cars)\n✅ Italian marble & premium fittings\n✅ Home theatre room\n✅ Servant quarters\n\nOne of the most prestigious addresses in Hyderabad. Gated community with 24/7 security.', contact_phone:'+91 76543 21098', contact_name:'Suresh Reddy', image_url:null, icon:'🏰', amenities:['Private Garden','Home Theatre','Servant Quarters','Rooftop Terrace','3 Car Parking','Gated Community'] },
+  { id:'f5', title:'Commercial Shop Space', location:'Connaught Place, Delhi', price:18000000, area_sqft:800, beds:0, baths:1, listing_type:'sell', property_type:'Commercial', description:'Prime commercial space in the iconic Connaught Place.\n\n✅ Ground floor with excellent footfall\n✅ Currently vacant — ready for possession\n✅ Glass facade & modern interior\n✅ Separate staff washroom\n\nIdeal for retail, showroom, or office. Unbeatable location in Delhi\'s commercial heart.', contact_phone:'+91 65432 10987', contact_name:'Vikram Singh', image_url:null, icon:'🏪', amenities:['Ground Floor','Glass Facade','High Footfall','Metro Connectivity','Ample Parking Nearby'] },
+  { id:'f6', title:'3BHK Sea View Apartment', location:'Marine Drive, Mumbai', price:35000000, area_sqft:1800, beds:3, baths:3, listing_type:'buy', property_type:'Apartment', description:'Rare opportunity — stunning sea-facing apartment on Marine Drive.\n\n✅ Unobstructed Arabian Sea view\n✅ Heritage building with modern renovation\n✅ Walk-in wardrobes in all bedrooms\n✅ Premium wood flooring\n✅ Building has gym, library & concierge\n\nDirect sea view from living room and master bedroom. One of Mumbai\'s most iconic addresses.', contact_phone:'+91 54321 09876', contact_name:'Deepa Mehta', image_url:null, icon:'🌊', amenities:['Sea View','Gymnasium','Library','Concierge Service','Heritage Building','Premium Renovation'] }
+];
 
+/* ===================== PRICE FORMATTER ===================== */
 function formatPrice(p, type) {
   if (type === 'rent') return '₹' + p.toLocaleString('en-IN') + '/mo';
   if (p >= 10000000) return '₹' + (p/10000000).toFixed(1) + ' Cr';
@@ -805,19 +783,16 @@ function formatPrice(p, type) {
 }
 
 const iconMap = { buy:'🏢', sell:'🏡', rent:'🏠' };
-const bgMap   = {
-  buy:'linear-gradient(135deg,#031420,#0a3d7a)',
-  sell:'linear-gradient(135deg,#150b2a,#3a1060)',
-  rent:'linear-gradient(135deg,#031510,#0a5030)'
-};
+const bgMap   = { buy:'linear-gradient(135deg,#031420,#0a3d7a)', sell:'linear-gradient(135deg,#150b2a,#3a1060)', rent:'linear-gradient(135deg,#031510,#0a5030)' };
 
+/* ===================== CARD HTML ===================== */
 function cardHTML(p) {
   const type = p.listing_type || 'buy';
   const img  = p.image_url
     ? `<img src="${p.image_url}" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'">`
     : `<div class="prop-img-placeholder">${p.icon || iconMap[type] || '🏠'}</div>`;
   return `
-    <div class="prop-card" onclick="sb._user?showToast('📞 Owner: '+('${p.contact_phone||''}' || 'Login se dekhen')):openModal('login')">
+    <div class="prop-card" onclick="openDetail(${JSON.stringify(p).replace(/"/g,'&quot;')})">
       <div class="prop-img" style="background:${bgMap[type]};">${img}
         <div class="ptag ptag-${type}">${type}</div>
         <button class="pfav" onclick="event.stopPropagation();this.textContent=this.textContent==='🤍'?'❤️':'🤍'">🤍</button>
@@ -835,16 +810,221 @@ function cardHTML(p) {
     </div>`;
 }
 
+/* ===================== OPEN PROPERTY DETAIL ===================== */
+let _prevPage = 'home';
+function openDetail(p) {
+  _prevPage = document.querySelector('.page.active')?.id?.replace('page-','') || 'home';
+  
+  // Build gallery
+  const galleryEl = document.getElementById('detail-gallery');
+  const photos = [];
+  if (p.image_url) photos.push(p.image_url);
+  if (p.extra_images) { try { JSON.parse(p.extra_images).forEach(u=>photos.push(u)); } catch(e){} }
+
+  const type = p.listing_type || 'buy';
+  const bg = bgMap[type];
+  const placeholderIcon = p.icon || iconMap[type] || '🏠';
+
+  if (photos.length === 0) {
+    galleryEl.innerHTML = `
+      <div style="grid-column:1/3;border-radius:14px;overflow:hidden;background:${bg};height:400px;display:flex;align-items:center;justify-content:center;font-size:5rem;">
+        ${placeholderIcon}
+      </div>`;
+  } else {
+    const mainImg = `<div class="gallery-main"><img src="${photos[0]}" alt="Main Photo" onclick="openLightbox(${JSON.stringify(photos).replace(/"/g,'&quot;')},0)"/></div>`;
+    const side1 = photos[1]
+      ? `<div class="gallery-side"><img src="${photos[1]}" alt="Photo 2" onclick="openLightbox(${JSON.stringify(photos).replace(/"/g,'&quot;')},1)"/></div>`
+      : `<div class="gallery-side" style="background:${bg};"><div class="side-placeholder">${placeholderIcon}</div></div>`;
+    const side2Html = photos.length >= 3
+      ? `<div class="gallery-side" style="position:relative;"><img src="${photos[2]}" alt="Photo 3" onclick="openLightbox(${JSON.stringify(photos).replace(/"/g,'&quot;')},2)"/>
+          ${photos.length > 3 ? `<button class="gallery-more-btn" onclick="openLightbox(${JSON.stringify(photos).replace(/"/g,'&quot;')},2)">+${photos.length-3} more photos</button>` : ''}
+        </div>`
+      : `<div class="gallery-side" style="background:${bg};"><div class="side-placeholder">📷</div></div>`;
+    galleryEl.innerHTML = mainImg + side1 + side2Html;
+  }
+
+  // Build detail content
+  const contentEl = document.getElementById('detail-content');
+  const amenitiesHTML = (p.amenities||[]).length > 0
+    ? `<div class="detail-features"><h3>Amenities & Features</h3><div class="features-grid">${(p.amenities||[]).map(a=>`<div class="feat">${a}</div>`).join('')}</div></div>`
+    : '';
+
+  const phone = p.contact_phone || '';
+  const ownerName = p.contact_name || 'Owner';
+  const showPhone = sb._user ? phone : '🔒 Login to View';
+  const phoneDisabled = sb._user ? '' : 'onclick="event.preventDefault();openModal(\'login\')"';
+
+  contentEl.innerHTML = `
+    <div class="detail-left">
+      <div class="detail-title-row">
+        <div>
+          <div class="detail-price">${formatPrice(p.price||0,type)} <span class="detail-price-sub">${type==='rent'?'per month':''}</span></div>
+          <div class="detail-title">${p.title||'Property'}</div>
+          <div class="detail-loc">${p.location||''}</div>
+        </div>
+        <button class="pfav" style="background:var(--surface2);border:1px solid var(--border);border-radius:50%;width:44px;height:44px;font-size:1.2rem;cursor:pointer;flex-shrink:0;" onclick="this.textContent=this.textContent==='🤍'?'❤️':'🤍'">🤍</button>
+      </div>
+      <div class="detail-badges">
+        <span class="dbadge dbadge-type">${p.property_type||'Property'}</span>
+        <span class="dbadge dbadge-${type}">${type.charAt(0).toUpperCase()+type.slice(1)}</span>
+        <span class="dbadge" style="background:rgba(168,149,106,.1);color:var(--text-muted);">✅ Verified</span>
+      </div>
+      <div class="detail-stats">
+        ${p.beds>0?`<div class="dstat"><div class="dstat-val">🛏 ${p.beds}</div><div class="dstat-key">Bedrooms</div></div>`:''}
+        ${p.baths>0?`<div class="dstat"><div class="dstat-val">🚿 ${p.baths}</div><div class="dstat-key">Bathrooms</div></div>`:''}
+        ${p.area_sqft?`<div class="dstat"><div class="dstat-val">📐 ${Number(p.area_sqft).toLocaleString('en-IN')}</div><div class="dstat-key">Sq Ft</div></div>`:''}
+        <div class="dstat"><div class="dstat-val">🏗️ ${p.property_type||'—'}</div><div class="dstat-key">Type</div></div>
+      </div>
+      ${p.description?`<div class="detail-desc-title">About This Property</div><div class="detail-desc">${p.description}</div>`:''}
+      ${amenitiesHTML}
+    </div>
+    <div>
+      <div class="contact-card">
+        <h3>Contact Owner</h3>
+        <div class="owner-row">
+          <div class="owner-avatar">${ownerName.charAt(0).toUpperCase()}</div>
+          <div>
+            <div class="owner-name">${ownerName}</div>
+            <div class="owner-tag">✅ Verified Owner · PROPDESH Member</div>
+          </div>
+        </div>
+        <div class="contact-btns">
+          <button class="cbtn cbtn-call" ${phoneDisabled} onclick="${sb._user?`window.location='tel:${phone}'`:"openModal('login')"}">
+            📞 ${sb._user ? 'Call: '+phone : 'Login to Call Owner'}
+          </button>
+          <button class="cbtn cbtn-whatsapp" onclick="${sb._user?`window.open('https://wa.me/'+('${phone}').replace(/[^0-9]/g,''),'_blank')`:"openModal('login')"}">
+            💬 WhatsApp Owner
+          </button>
+          <button class="cbtn cbtn-msg" onclick="showToast('📩 Message feature coming soon!')">
+            ✉️ Send Message
+          </button>
+        </div>
+        <div class="safety-note">
+          <strong>⚠️ Safety Tip:</strong> PROPDESH property visit hamesha din mein karein. Advance payment kabhi mat dein bina agreement ke. Agar kuch suspicious lage toh report karein.
+        </div>
+      </div>
+    </div>`;
+
+  showPage('detail');
+}
+
+function goBack() { showPage(_prevPage); }
+
+/* ===================== LIGHTBOX ===================== */
+let _lbPhotos = [], _lbIdx = 0;
+function openLightbox(photos, idx) {
+  _lbPhotos = photos; _lbIdx = idx;
+  document.getElementById('lightbox-img').src = photos[idx];
+  document.getElementById('lightbox-counter').textContent = `${idx+1} / ${photos.length}`;
+  document.getElementById('lightbox').classList.add('open');
+}
+function closeLightbox() { document.getElementById('lightbox').classList.remove('open'); }
+function lightboxNav(dir) {
+  _lbIdx = (_lbIdx + dir + _lbPhotos.length) % _lbPhotos.length;
+  document.getElementById('lightbox-img').src = _lbPhotos[_lbIdx];
+  document.getElementById('lightbox-counter').textContent = `${_lbIdx+1} / ${_lbPhotos.length}`;
+}
+document.getElementById('lightbox').addEventListener('click', e => { if(e.target === e.currentTarget) closeLightbox(); });
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeLightbox(); if(e.key==='ArrowRight') lightboxNav(1); if(e.key==='ArrowLeft') lightboxNav(-1); });
+
+/* ===================== MULTI-IMAGE UPLOAD ===================== */
+let selectedFiles = [];
+
+function handleDragOver(e) {
+  e.preventDefault();
+  document.getElementById('upload-area').classList.add('drag-over');
+}
+function handleDrop(e) {
+  e.preventDefault();
+  document.getElementById('upload-area').classList.remove('drag-over');
+  addFiles(Array.from(e.dataTransfer.files).filter(f=>f.type.startsWith('image/')));
+}
+function handleImgSelect(e) {
+  addFiles(Array.from(e.target.files));
+  e.target.value = '';
+}
+function addFiles(newFiles) {
+  const remaining = 5 - selectedFiles.length;
+  if (remaining <= 0) return showToast('⚠️ Maximum 5 photos allowed');
+  const toAdd = newFiles.slice(0, remaining);
+  if (newFiles.length > remaining) showToast(`⚠️ Only ${remaining} more photo(s) allowed. Added first ${remaining}.`);
+  toAdd.forEach(f => {
+    if (f.size > 5*1024*1024) { showToast(`⚠️ ${f.name} is too large (max 5MB)`); return; }
+    selectedFiles.push(f);
+  });
+  renderPreviews();
+}
+function removeImg(idx) {
+  selectedFiles.splice(idx, 1);
+  renderPreviews();
+}
+function renderPreviews() {
+  const container = document.getElementById('img-previews');
+  if (selectedFiles.length === 0) { container.innerHTML = ''; return; }
+  container.innerHTML = selectedFiles.map((f, i) => {
+    const url = URL.createObjectURL(f);
+    return `<div class="img-preview-item">
+      <img src="${url}" alt="Preview"/>
+      ${i===0?'<div class="main-badge">Main</div>':''}
+      <button class="remove-img" onclick="removeImg(${i})">✕</button>
+    </div>`;
+  }).join('');
+}
+
+/* ===================== SUBMIT PROPERTY ===================== */
+async function submitProperty() {
+  if (!sb._user) { openModal('login'); return showToast('⚠️ Pehle login karein'); }
+  const title  = document.getElementById('p-title').value.trim();
+  const loc    = document.getElementById('p-loc').value.trim();
+  const price  = parseFloat(document.getElementById('p-price').value);
+  const area   = parseFloat(document.getElementById('p-area').value);
+  const ptype  = document.getElementById('p-type').value;
+  const ltype  = document.getElementById('p-ltype').value;
+  const beds   = parseInt(document.getElementById('p-beds').value)||0;
+  const baths  = parseInt(document.getElementById('p-baths').value)||0;
+  const desc   = document.getElementById('p-desc').value.trim();
+  const phone  = document.getElementById('p-phone').value.trim();
+  const cname  = document.getElementById('p-cname').value.trim();
+  if (!title||!loc||!price) return showToast('⚠️ Title, location aur price zaroori hai');
+  showToast('🔄 Property submit ho rahi hai...');
+
+  let image_url = null, extra_images = null;
+  if (selectedFiles.length > 0) {
+    const urls = [];
+    for (let i = 0; i < selectedFiles.length; i++) {
+      const f = selectedFiles[i];
+      const path = `${sb._user.id}/${Date.now()}_${i}_${f.name.replace(/\s+/g,'_')}`;
+      const url = await sb.upload('property-images', path, f);
+      if (url) urls.push(url);
+    }
+    if (urls.length > 0) {
+      image_url = urls[0];
+      if (urls.length > 1) extra_images = JSON.stringify(urls.slice(1));
+    }
+  }
+
+  const payload = { title, location:loc, price, area_sqft:area, property_type:ptype,
+    listing_type:ltype, beds, baths, description:desc, contact_phone:phone,
+    contact_name:cname, image_url, extra_images, user_id:sb._user.id, status:'pending' };
+  const res = await sb.post('properties', payload);
+  if (res) {
+    showToast('✅ Property submit! 24 ghante mein review hogi.');
+    document.getElementById('post-form').querySelectorAll('input,select,textarea').forEach(el=>{ if(el.type!=='file') el.value=''; });
+    selectedFiles = []; renderPreviews();
+  } else { showToast('❌ Submit failed. Dobara try karein.'); }
+}
+
+/* ===================== LOAD / FILTER ===================== */
 function showLoading(cid) {
   const el = document.getElementById(cid);
   if (el) el.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--text-muted);">
     <div style="font-size:2rem;margin-bottom:.8rem;animation:spin 1s linear infinite;display:inline-block;">🌐</div>
-    <div>Supabase se properties load ho rahi hain...</div></div>`;
+    <div>Properties load ho rahi hain...</div></div>`;
 }
 
 async function fetchAndRender(cid, params='') {
   showLoading(cid);
-  let data = await sb.get('properties', params + '&order=created_at.desc');
+  let data = await sb.get('properties', (params?params+'&':'')+'order=created_at.desc');
   if (!data || data.length === 0) data = fallbackProps.filter(p => {
     if (params.includes('listing_type=eq.buy'))  return p.listing_type==='buy';
     if (params.includes('listing_type=eq.sell')) return p.listing_type==='sell';
@@ -856,7 +1036,6 @@ async function fetchAndRender(cid, params='') {
     `<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--text-muted);">Abhi koi listing nahi hai. Pehle list karein! 🏠</div>`;
 }
 
-/* ===================== SEARCH ===================== */
 async function searchProperties() {
   const type   = document.getElementById('s-type').value;
   const loc    = document.getElementById('s-loc').value.trim();
@@ -865,56 +1044,17 @@ async function searchProperties() {
   if (type && type !== 'all') params += `&property_type=eq.${encodeURIComponent(type)}`;
   if (loc) params += `&location=ilike.*${encodeURIComponent(loc)}*`;
   if (budget) {
-    const budgetMap = {
-      'under20':  'price=lte.2000000',
-      '20to50':   'price=gte.2000000&price=lte.5000000',
-      '50to1cr':  'price=gte.5000000&price=lte.10000000',
-      '1to5cr':   'price=gte.10000000&price=lte.50000000',
-      '5crplus':  'price=gte.50000000'
-    };
-    if (budgetMap[budget]) params += '&' + budgetMap[budget];
+    const bmap = { 'under20':'price=lte.2000000','20to50':'price=gte.2000000&price=lte.5000000','50to1cr':'price=gte.5000000&price=lte.10000000','1to5cr':'price=gte.10000000&price=lte.50000000','5crplus':'price=gte.50000000' };
+    if (bmap[budget]) params += '&' + bmap[budget];
   }
   showPage('buy');
   await fetchAndRender('buy-grid', params.replace(/^&/,''));
 }
 
-/* ===================== POST PROPERTY ===================== */
-async function submitProperty() {
-  if (!sb._user) { openModal('login'); return showToast('⚠️ Pehle login karein'); }
-  const title   = document.getElementById('p-title').value.trim();
-  const loc     = document.getElementById('p-loc').value.trim();
-  const price   = parseFloat(document.getElementById('p-price').value);
-  const area    = parseFloat(document.getElementById('p-area').value);
-  const ptype   = document.getElementById('p-type').value;
-  const ltype   = document.getElementById('p-ltype').value;
-  const beds    = parseInt(document.getElementById('p-beds').value)||0;
-  const baths   = parseInt(document.getElementById('p-baths').value)||0;
-  const desc    = document.getElementById('p-desc').value.trim();
-  const phone   = document.getElementById('p-phone').value.trim();
-  const imgFile = document.getElementById('p-img').files[0];
-  if (!title||!loc||!price) return showToast('⚠️ Title, location aur price zaroori hai');
-  showToast('🔄 Property submit ho rahi hai...');
-  let image_url = null;
-  if (imgFile) {
-    const path = `${sb._user.id}/${Date.now()}_${imgFile.name.replace(/\s+/g,'_')}`;
-    image_url = await sb.upload('property-images', path, imgFile);
-  }
-  const payload = { title, location:loc, price, area_sqft:area, property_type:ptype,
-    listing_type:ltype, beds, baths, description:desc, contact_phone:phone,
-    image_url, user_id:sb._user.id, status:'pending' };
-  const res = await sb.post('properties', payload);
-  if (res) {
-    showToast('✅ Property submit! 24 ghante mein review hogi.');
-    document.getElementById('post-form').reset();
-  } else {
-    showToast('❌ Submit failed. Dobara try karein.');
-  }
-}
-
-/* ===================== FILTER / PAGE HELPERS ===================== */
 async function showPage(n) {
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.getElementById('page-'+n)?.classList.add('active');
+  const pg = document.getElementById('page-'+n);
+  if(pg) pg.classList.add('active');
   window.scrollTo({top:0,behavior:'smooth'});
   if (n==='home') await fetchAndRender('featured-grid');
   if (n==='buy')  await fetchAndRender('buy-grid',  'listing_type=eq.buy');
