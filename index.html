@@ -836,9 +836,10 @@ async function sbLogin() {
   if (res.access_token) {
     sb._token = res.access_token; sb._user = res.user;
     sb.headers['Authorization'] = 'Bearer ' + res.access_token;
+    localStorage.setItem('pd_token', res.access_token);
+    localStorage.setItem('pd_user', JSON.stringify(res.user));
     closeModal('login'); updateNavAuth();
     showToast('✅ Welcome back, ' + (res.user.user_metadata?.full_name || email) + '!');
-    // Re-render contact card if property detail page is open
     if (document.getElementById('page-detail')?.classList.contains('active')) renderDetailContent();
   } else { showToast('❌ ' + (res.error_description || res.msg || 'Login failed')); }
 }
@@ -854,7 +855,13 @@ async function sbRegister() {
   if (res.user || res.id) {
     closeModal('register');
     showToast('🎉 Welcome PROPDESH par, ' + name + '! Email verify karein.');
-    if (res.access_token) { sb._token = res.access_token; sb._user = res.user || res; sb.headers['Authorization'] = 'Bearer ' + res.access_token; updateNavAuth(); }
+    if (res.access_token) {
+      sb._token = res.access_token; sb._user = res.user || res;
+      sb.headers['Authorization'] = 'Bearer ' + res.access_token;
+      localStorage.setItem('pd_token', res.access_token);
+      localStorage.setItem('pd_user', JSON.stringify(res.user || res));
+      updateNavAuth();
+    }
     if (document.getElementById('page-detail')?.classList.contains('active')) renderDetailContent();
   } else { showToast('❌ ' + (res.error_description || res.msg || 'Registration failed')); }
 }
@@ -862,6 +869,8 @@ async function sbRegister() {
 async function sbLogout() {
   sb._token = null; sb._user = null;
   sb.headers['Authorization'] = 'Bearer ' + SB_KEY;
+  localStorage.removeItem('pd_token');
+  localStorage.removeItem('pd_user');
   updateNavAuth(); showToast('👋 Logged out successfully'); showPage('home');
 }
 
@@ -1366,10 +1375,26 @@ async function sendContactMessage() {
   showToast('✅ Message bhej diya gaya!');
 }
 
+
+// ===== RESTORE SESSION ON REFRESH =====
+(function restoreSession() {
+  const token = localStorage.getItem('pd_token');
+  const user  = localStorage.getItem('pd_user');
+  if (token && user) {
+    try {
+      sb._token = token;
+      sb._user  = JSON.parse(user);
+      sb.headers['Authorization'] = 'Bearer ' + token;
+    } catch(e) {
+      localStorage.removeItem('pd_token');
+      localStorage.removeItem('pd_user');
+    }
+  }
+})();
+
 // init
 updateNavAuth();
 fetchAndRender('featured-grid');
-// Render contact form on page load (state-aware)
 setTimeout(renderContactForm, 100);
 </script>
 </body>
